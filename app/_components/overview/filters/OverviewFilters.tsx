@@ -1,5 +1,9 @@
+"use client";
+
 import Accordion from "@/components/accordion/Accordion";
+import Checkbox from "@/components/checkbox/Checkbox";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function OverviewFilters() {
 	return (
@@ -21,11 +25,14 @@ export default function OverviewFilters() {
 }
 
 function Filter({ title }: { title: string }) {
+	const [isChecked, setIsChecked] = useState(false);
 	return (
 		<Accordion title={title}>
-			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi veniam reprehenderit error
-			quaerat consequuntur qui molestias animi dignissimos, minus, possimus magni aliquam nulla natus
-			ipsam minima enim, sunt commodi non!
+			<div className="flex flex-col gap-2">
+				<Checkbox label="Boss" onChange={setIsChecked} value={isChecked} />
+				<Checkbox label="Boss" onChange={setIsChecked} value={isChecked} />
+				<Checkbox label="Boss" onChange={setIsChecked} value={isChecked} />
+			</div>
 		</Accordion>
 	);
 }
