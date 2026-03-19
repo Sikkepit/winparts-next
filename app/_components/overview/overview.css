@@ -1,0 +1,9 @@
+.overview {
+	.overview__filters {
+		padding-block: 1rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+	}
+}

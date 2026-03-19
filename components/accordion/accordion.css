@@ -8,14 +8,51 @@
 		border-block-start: 0px;
 	}
 
-	.accordion__header,
-	.accordion__body {
+	.accordion__toggle,
+	.accordion__content {
 		padding: 0.5rem 0.75rem;
+	}
+
+	&.open {
+		.accordion__body {
+			grid-template-rows: 1fr;
+		}
+
+		.accordion__header .accordion__toggle {
+			svg {
+				rotate: 0deg;
+			}
+		}
+	}
+
+	.accordion__body {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.3s ease-in-out;
 	}
 
 	.accordion__header {
 		text-transform: uppercase;
 		background-color: var(--color-gallery-100);
 		border-block-end: var(--accordion-border);
+
+		.accordion__toggle {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			width: 100%;
+
+			&.open {
+				svg {
+					rotate: 0deg;
+				}
+			}
+
+			svg {
+				rotate: 180deg;
+				width: 1rem;
+				height: 1rem;
+			}
+		}
 	}
 }

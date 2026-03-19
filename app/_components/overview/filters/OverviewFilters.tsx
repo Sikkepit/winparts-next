@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function OverviewFilters() {
 	return (
-		<>
+		<div className="overview__filters">
 			<Image
 				src="/filters-toepassen.png"
 				alt="Filters toepassen"
@@ -12,12 +12,20 @@ export default function OverviewFilters() {
 				loading="eager"
 			/>
 
-			<Filter title="Merk" />
-			<Filter title="Merk" />
-		</>
+			<div className="w-full">
+				<Filter title="Merk" />
+				<Filter title="Merk" />
+			</div>
+		</div>
 	);
 }
 
 function Filter({ title }: { title: string }) {
-	return <Accordion title={title}>Filter</Accordion>;
+	return (
+		<Accordion title={title}>
+			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi veniam reprehenderit error
+			quaerat consequuntur qui molestias animi dignissimos, minus, possimus magni aliquam nulla natus
+			ipsam minima enim, sunt commodi non!
+		</Accordion>
+	);
 }
