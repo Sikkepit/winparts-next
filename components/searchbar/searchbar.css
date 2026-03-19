@@ -1,6 +1,6 @@
 .searchbar {
 	background-color: white;
-	padding: 0.5rem 1rem;
+	padding: 0.75rem 1.25rem;
 	border-radius: 400px;
 
 	display: flex;
@@ -11,8 +11,8 @@
 	}
 
 	.searchbar__input {
+		flex-grow: 1;
 		color: var(--color-font-primary);
-		width: 100%;
 
 		&:focus-visible {
 			outline: none;
@@ -20,7 +20,8 @@
 	}
 
 	svg {
-		width: 1rem;
-		height: 1rem;
+		flex-shrink: 0;
+		width: 1.25rem;
+		height: 1.25rem;
 	}
 }

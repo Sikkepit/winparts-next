@@ -1,0 +1,21 @@
+.accordion {
+	--accordion-border: 1px solid var(--color-gallery-100);
+
+	font-size: 0.875rem;
+	border: var(--accordion-border);
+
+	& + .accordion {
+		border-block-start: 0px;
+	}
+
+	.accordion__header,
+	.accordion__body {
+		padding: 0.5rem 0.75rem;
+	}
+
+	.accordion__header {
+		text-transform: uppercase;
+		background-color: var(--color-gallery-100);
+		border-block-end: var(--accordion-border);
+	}
+}

@@ -2,7 +2,9 @@
 
 :root {
 	--color-purple: #5200e5;
+	--color-persian: #330a80;
 	--color-orange: #ff9933;
+	--color-gallery-100: #eeeeee;
 
 	--color-font-primary: var(--color-black);
 	--color-focus: var(--color-orange);

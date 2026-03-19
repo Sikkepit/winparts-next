@@ -11,13 +11,16 @@
 		justify-content: center;
 
 		img {
-			width: 126px;
-			height: 126px;
+			width: 160px;
+			height: 160px;
 		}
 	}
 
 	.header__content {
 		padding: 1rem 0.5rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 
 		.header__usps {
 			display: flex;
@@ -30,6 +33,39 @@
 
 			.header__orange-txt {
 				color: var(--color-orange);
+			}
+		}
+
+		.header__categories {
+			border-radius: 12px;
+			overflow: hidden;
+			display: inline-flex;
+			background-color: var(--color-persian);
+
+			a {
+				display: block;
+				font-weight: bold;
+				padding: 0.75rem 1rem;
+				position: relative;
+
+				&:after {
+					content: "";
+					position: absolute;
+					height: 70%;
+					width: 0;
+					right: 0;
+					top: 50%;
+					transform: translate(0, -50%);
+					border-right: 1px solid #5200e5;
+				}
+
+				&:hover {
+					background-color: var(--color-orange);
+
+					&:after {
+						border-right: 0;
+					}
+				}
 			}
 		}
 	}

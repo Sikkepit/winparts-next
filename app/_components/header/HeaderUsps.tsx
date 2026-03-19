@@ -16,7 +16,7 @@ export default function HeaderUsps() {
 			</Usp>
 
 			<Usp src="/helpdesk.png" alt="helpdesk icoon">
-				<span className="header__orange-txt">Deskundinge</span> helpdesk
+				<span className="header__orange-txt">Deskundige</span> helpdesk
 			</Usp>
 		</div>
 	);

@@ -1,7 +1,9 @@
 import Image from "next/image";
-import "./header.css";
 import HeaderUsps from "./HeaderUsps";
 import HeaderSearch from "./HeaderSearch";
+import HeaderCategories from "./HeaderCategories";
+
+import "./header.css";
 
 export default function Header() {
 	return (
@@ -11,8 +13,8 @@ export default function Header() {
 					<Image
 						src="/logo.webp"
 						alt="Winparts logo"
-						width={126}
-						height={126}
+						width={160}
+						height={160}
 						loading="eager"
 					/>
 				</div>
@@ -20,6 +22,7 @@ export default function Header() {
 				<div className="col-span-9 header__content">
 					<HeaderUsps />
 					<HeaderSearch />
+					<HeaderCategories />
 				</div>
 			</section>
 		</header>
