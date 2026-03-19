@@ -20,7 +20,7 @@
 
 		.accordion__header .accordion__toggle {
 			svg {
-				rotate: 0deg;
+				rotate: 180deg;
 			}
 		}
 	}
@@ -32,7 +32,6 @@
 	}
 
 	.accordion__header {
-		text-transform: uppercase;
 		background-color: var(--color-gallery-100);
 		border-block-end: var(--accordion-border);
 
@@ -42,14 +41,7 @@
 			gap: 0.5rem;
 			width: 100%;
 
-			&.open {
-				svg {
-					rotate: 0deg;
-				}
-			}
-
 			svg {
-				rotate: 180deg;
 				width: 1rem;
 				height: 1rem;
 			}
