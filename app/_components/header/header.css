@@ -1,0 +1,36 @@
+.header {
+	background-color: var(--color-purple);
+	color: var(--color-white);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.header__logo {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		img {
+			width: 126px;
+			height: 126px;
+		}
+	}
+
+	.header__content {
+		padding: 1rem 0.5rem;
+
+		.header__usps {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			font-size: 0.75rem;
+			font-weight: bold;
+			text-transform: uppercase;
+
+			.header__orange-txt {
+				color: var(--color-orange);
+			}
+		}
+	}
+}
