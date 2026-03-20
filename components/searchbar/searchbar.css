@@ -1,6 +1,6 @@
 .searchbar {
 	background-color: white;
-	padding: 0.75rem 1.25rem;
+
 	border-radius: 400px;
 
 	display: flex;
@@ -13,6 +13,7 @@
 	.searchbar__input {
 		flex-grow: 1;
 		color: var(--color-text);
+		padding: 0.75rem 1.25rem;
 
 		&:focus-visible {
 			outline: none;
