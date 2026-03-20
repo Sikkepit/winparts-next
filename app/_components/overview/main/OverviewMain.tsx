@@ -1,14 +1,20 @@
-export default function OverviewMain() {
+import { CategoryType } from "@/types/types";
+import ProductCard from "../product/ProductCard";
+import { getProductsByCategory } from "@/data/products";
+
+export default function OverviewMain({ category }: { category: CategoryType }) {
+	const products = getProductsByCategory(category.id);
+
 	return (
 		<div className="overview__main">
-			<h1>Ruitenwissers</h1>
-			<p className="text-sm">
-				Versleten ruitenwissers piepen of laten strepen achter op uw raam. Daarnaast verwijderen
-				versleten ruitenwissers het water niet goed van uw ruit, waardoor u geen goed zicht
-				heeft als het regent. Wacht niet te lang met de ruitenwissers vervangen. Bij Winparts
-				bestelt u Bosch ruitenwissers, maar ook ruitenwissers van Valeo en SWF. Vul uw kenteken
-				in om gemakkelijk passende ruitenwissers voor uw auto te vinden.
-			</p>
+			<h1>{category.title}</h1>
+			<p>{category.intro}</p>
+
+			<div className="flex flex-col gap-4 mt-4">
+				{products.map((product) => (
+					<ProductCard product={product} key={product.id} />
+				))}
+			</div>
 		</div>
 	);
 }

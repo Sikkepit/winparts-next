@@ -2,10 +2,11 @@
 
 import Accordion from "@/components/accordion/Accordion";
 import Checkbox from "@/components/checkbox/Checkbox";
+import { CategoryType, FilterType } from "@/types/types";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function OverviewFilters() {
+export default function OverviewFilters({ category }: { category: CategoryType }) {
 	return (
 		<div className="overview__filters">
 			<Image
@@ -17,21 +18,33 @@ export default function OverviewFilters() {
 			/>
 
 			<div className="w-full">
-				<Filter title="Merk" />
-				<Filter title="Merk" />
+				{category.filters.map((filter) => (
+					<Filter key={filter.id} filter={filter} />
+				))}
 			</div>
 		</div>
 	);
 }
 
-function Filter({ title }: { title: string }) {
+function Filter({ filter }: { filter: FilterType }) {
 	const [isChecked, setIsChecked] = useState(false);
+
+	const handleChange = (newValue: boolean, optie: string) => {
+		setIsChecked(newValue);
+		console.log(optie, newValue);
+	};
+
 	return (
-		<Accordion title={title}>
+		<Accordion title={filter.title}>
 			<div className="flex flex-col gap-2">
-				<Checkbox label="Boss" onChange={setIsChecked} value={isChecked} />
-				<Checkbox label="Boss" onChange={setIsChecked} value={isChecked} />
-				<Checkbox label="Boss" onChange={setIsChecked} value={isChecked} />
+				{filter.opties.map((optie) => (
+					<Checkbox
+						key={optie}
+						label={optie}
+						onChange={(checked) => handleChange(checked, optie)}
+						value={isChecked}
+					/>
+				))}
 			</div>
 		</Accordion>
 	);

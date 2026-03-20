@@ -1,0 +1,95 @@
+.product-card {
+	min-height: 10rem;
+	display: flex;
+	border: 1px solid var(--color-gallery-200);
+
+	.product-card__image {
+		display: flex;
+		align-items: center;
+
+		flex-shrink: 0;
+		width: 12.8125rem;
+
+		img {
+			width: 210px;
+			height: 147px;
+		}
+	}
+
+	.product-card__info {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		padding: 0.5rem 0.75rem;
+		flex: 1;
+
+		p {
+			font-size: 0.75rem;
+		}
+	}
+
+	.product-card__price-container {
+		background-color: var(--color-alabaster);
+		border-inline-start: 1px solid var(--color-gallery-200);
+		flex-shrink: 0;
+		width: 12.125rem;
+		font-size: 0.75rem;
+
+		.product-card__winprijs {
+			color: var(--color-cranberry);
+
+			text {
+				fill: var(--color-white);
+				font-weight: 700;
+			}
+		}
+
+		.product-card__adviesprijs {
+			font-weight: 500;
+		}
+
+		.product-card__verkoopprijs {
+			color: var(--color-cranberry);
+			font-size: 1rem;
+			font-weight: bold;
+		}
+
+		.product-card__add-button {
+			margin-top: 0.5rem;
+			background-color: var(--color-poppy);
+			color: var(--color-white);
+			padding: 0.5rem 1rem;
+			border-radius: 8px;
+
+			.icon {
+				fill: var(--color-white);
+				height: 1.5rem;
+				width: 1.5rem;
+			}
+
+			&:hover {
+				background-color: var(--color-flush);
+			}
+		}
+
+		.product-card__levertijd {
+			align-self: flex-start;
+			margin-left: 0.5rem;
+			margin-top: auto;
+
+			display: inline-flex;
+			align-items: center;
+			gap: 0.25rem;
+
+			color: var(--color-succes);
+
+			.product-card__dot {
+				display: inline-block;
+				border-radius: 9999px;
+				width: 0.5rem;
+				height: 0.5rem;
+				background-color: var(--color-succes);
+			}
+		}
+	}
+}

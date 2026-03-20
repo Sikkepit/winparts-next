@@ -11,7 +11,7 @@ export default function Header() {
 			<section className="grid grid-cols-12">
 				<div className="col-span-3 header__logo">
 					<Image
-						src="/logo.webp"
+						src="/logo2.webp"
 						alt="Winparts logo"
 						width={160}
 						height={160}

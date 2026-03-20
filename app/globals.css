@@ -5,9 +5,16 @@
 	--color-persian: #330a80;
 	--color-orange: #ff9933;
 	--color-gallery-100: #eeeeee;
+	--color-gallery-200: #ececec;
+	--color-alabaster: #f9f9f9;
+	--color-cranberry: #ed4770;
+	--color-poppy: #ff9900;
+	--color-flush: #ff8000;
+	--color-succes: #008000;
 
 	--color-font-primary: var(--color-black);
 	--color-focus: var(--color-orange);
+	--color-border: var(--color-gallery-100);
 }
 
 body {
@@ -15,6 +22,7 @@ body {
 	display: flex;
 	flex-direction: column;
 
+	font-size: 0.875rem;
 	font-weight: 300;
 }
 
@@ -53,4 +61,8 @@ h1 {
 	font-weight: 800;
 	font-size: 1.5rem;
 	color: var(--color-persian);
+}
+
+h2 {
+	font-weight: 600;
 }
