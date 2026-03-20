@@ -7,6 +7,14 @@
 		gap: 0.75rem;
 	}
 
+	.overview__main {
+		.overview__result-count {
+			font-weight: bold;
+			font-size: 1rem;
+			color: var(--color-star-dust);
+		}
+	}
+
 	.overview__filters {
 		align-items: center;
 	}

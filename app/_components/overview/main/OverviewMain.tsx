@@ -6,8 +6,9 @@ export default function OverviewMain({ category, products }: { category: Categor
 		<div className="overview__main">
 			<h1>{category.title}</h1>
 			<p>{category.intro}</p>
+			<span className="overview__result-count">{products.length} product(en)</span>
 
-			<div className="flex flex-col gap-4 mt-4">
+			<div className="flex flex-col gap-4">
 				{products.map((product) => (
 					<ProductCard product={product} key={product.id} />
 				))}

@@ -13,7 +13,7 @@ export default function Overview() {
 	const category = getCategoryDetails(categoryId);
 	const products = getProductsByCategory(categoryId);
 
-	const [filterObject, setFilterObject] = useState(getFilterDto(category?.filters));
+	const [filterObject, setFilterObject] = useState<Record<string, string[]>>(getFilterDto(category?.filters));
 
 	if (!category) {
 		return <>Categorie niet gevonden</>;

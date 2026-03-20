@@ -1,6 +1,9 @@
 import { FilterType, ProductType } from "@/types/types";
 
-export const getFilterDto = (filters: FilterType[] | undefined) => {
+/**
+ * Get empty filter object that takes in account configured category filters
+ */
+export const getFilterDto = (filters: FilterType[] | undefined): Record<string, string[]> => {
 	let returnObj = {};
 	if (!filters) return returnObj;
 
@@ -25,7 +28,7 @@ export const getPath = (obj: unknown, path: string): unknown => {
 export const getFilteredProducts = (products: ProductType[], filterObj: Record<string, string[]>) => {
 	const filteredProducts = products.filter((product) => {
 		return Object.entries(filterObj).every(([key, value]) => {
-			// Skip if the filter option has nog checkboxes checked
+			// Skip if the filter option has no checkboxes checked
 			if (value.length === 0) return true;
 
 			const target = getPath(product, key);
