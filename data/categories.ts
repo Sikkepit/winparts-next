@@ -11,12 +11,12 @@ const ruitenwissers: CategoryType = {
 	filters: [
 		{ id: "brand", title: "Merk", opties: ["Bosch", "Valeo", "Blue Print"] },
 		{ id: "details/inbouwplaats", title: "Inbouwplaats", opties: ["Voorzijde", "Achterzijde"] },
-		{ id: "details/aantal", title: "Aantal", opties: ["Set", "1", "Voordeelset", "2"] },
-		{ id: "details/typeruitenwisser", title: "Type ruitenwisser", opties: ["Traditioneel", "Flatblade"] },
+		{ id: "details/aantal", title: "Aantal", opties: ["1", "2", "Set", "Voordeelset"] },
+		{ id: "details/typeruitenwisser", title: "Type ruitenwisser", opties: ["Flatblade", "Traditioneel"] },
 		{
 			id: "details/monteerwijze",
 			title: "Monteerwijze",
-			opties: ["Klikbevestiging", "Haakbevestiging", "Universeel"],
+			opties: ["Haakbevestiging", "Universeel", "Klikbevestiging"],
 		},
 	],
 };

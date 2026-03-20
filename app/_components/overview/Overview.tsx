@@ -8,7 +8,7 @@ export default function Overview() {
 	const category = getCategoryDetails(categoryId);
 
 	if (!category) {
-		return <>Categorie Niet gevonden</>;
+		return <>Categorie niet gevonden</>;
 	}
 
 	return (
