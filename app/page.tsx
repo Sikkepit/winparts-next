@@ -6,9 +6,11 @@ export default function Home() {
 	return (
 		<>
 			<Header />
+
 			<main className="main">
 				<Overview />
 			</main>
+
 			<Footer />
 		</>
 	);

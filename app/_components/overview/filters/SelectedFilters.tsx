@@ -1,5 +1,5 @@
 export default function SelectedFilters({ filterObject }: { filterObject: Record<string, string[]> }) {
-	const getFilterArray = () => {
+	const getSelectedFilters = () => {
 		const filterArr: string[] = [];
 		Object.entries(filterObject).map(([, value]) =>
 			value.map((v) => {
@@ -10,7 +10,8 @@ export default function SelectedFilters({ filterObject }: { filterObject: Record
 		return filterArr;
 	};
 
-	const filters = getFilterArray();
+	const filters = getSelectedFilters();
+
 	return (
 		<ul className="overview__active-filters">
 			{filters.map((filter) => (

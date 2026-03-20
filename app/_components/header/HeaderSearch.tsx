@@ -10,5 +10,5 @@ export default function HeaderSearch() {
 		router.push(`/zoeken/${searchValue.toLowerCase()}`);
 	};
 
-	return <SearchBar onSubmit={handleSubmit} placeholder="Zoekterm, OEM, EAN of artikelnummer" />;
+	return <SearchBar onSubmit={handleSubmit} placeholder="Zoekt op titel, merk, beschrijving of artikelnummer" />;
 }
