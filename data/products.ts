@@ -1,6 +1,6 @@
 import { ProductType } from "@/types/types";
 
-export const products = [
+export const products: ProductType[] = [
 	{
 		image: "https://static.winparts.net/ruiten-toebehoren/ruitenwissers/c469/bosch-ruitenwissers-aerotwin-a863s-lengte-650-450-mm-set-wisserbladen-voorzijde/p7712020_210_147.jpg",
 		brand: "Bosch",

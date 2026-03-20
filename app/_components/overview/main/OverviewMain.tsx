@@ -1,10 +1,7 @@
-import { CategoryType } from "@/types/types";
+import { CategoryType, ProductType } from "@/types/types";
 import ProductCard from "../product/ProductCard";
-import { getProductsByCategory } from "@/data/products";
 
-export default function OverviewMain({ category }: { category: CategoryType }) {
-	const products = getProductsByCategory(category.id);
-
+export default function OverviewMain({ category, products }: { category: CategoryType; products: ProductType[] }) {
 	return (
 		<div className="overview__main">
 			<h1>{category.title}</h1>

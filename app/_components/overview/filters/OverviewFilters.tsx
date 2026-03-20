@@ -1,14 +1,17 @@
-"use client";
-
 import { CategoryType, FilterType } from "@/types/types";
-import { getFilterDto } from "@/utils/categoryUtil";
 import Image from "next/image";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Filter } from "./Filter";
 
-export default function OverviewFilters({ category }: { category: CategoryType }) {
-	const [filterObject, setFilterObject] = useState(getFilterDto(category.filters));
-
+export default function OverviewFilters({
+	category,
+	filterObject,
+	setFilterObject,
+}: {
+	category: CategoryType;
+	filterObject: Record<string, string[]>;
+	setFilterObject: Dispatch<SetStateAction<Record<string, string[]>>>;
+}) {
 	const getValue = (id: string) => {
 		if (filterObject[id as keyof typeof filterObject]) {
 			return filterObject[id as keyof typeof filterObject];

@@ -26,6 +26,9 @@ type ProductDetailsType = {
 	hoeveelheid?: string;
 	product?: string;
 	linksrechtsbesturing?: string;
+	passendeadapter?: string;
+	bijgevoegdeadapter?: string;
+	styling?: string;
 };
 
 export type FilterType = {
