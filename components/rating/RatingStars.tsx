@@ -1,4 +1,4 @@
-import "./ratingstar.css";
+import "./ratingstars.css";
 
 export default function RatingStars({ rating }: { rating?: number }) {
 	const maxStars = 5;

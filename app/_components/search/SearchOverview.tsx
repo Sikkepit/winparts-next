@@ -3,11 +3,11 @@
 import { products } from "@/data/products";
 import { CategoryType, ProductType } from "@/types/types";
 import { getFilteredProducts, getSearchResults } from "@/utils/categoryUtil";
-import OverviewMain from "../overview/main/OverviewMain";
-
-import "../overview/overview.css";
 import { useState } from "react";
+
+import OverviewMain from "../overview/main/OverviewMain";
 import OverviewFilters from "../overview/filters/OverviewFilters";
+import "../overview/overview.css";
 
 type SearchOverviewProps = { category: CategoryType; searchQuery: string };
 
@@ -16,10 +16,8 @@ export default function SearchOverview({ category, searchQuery }: SearchOverview
 		brand: [],
 	});
 
-	const searcResults = getSearchResults(products, searchQuery);
-	const brands = getUniqiueBrands(searcResults);
-
-	const filteredProducts = getFilteredProducts(searcResults, filterObject);
+	const searchResults = getSearchResults(products, searchQuery);
+	const filteredProducts = getFilteredProducts(searchResults, filterObject);
 
 	const searchCategory = {
 		...category,
@@ -27,7 +25,7 @@ export default function SearchOverview({ category, searchQuery }: SearchOverview
 			{
 				id: "brand",
 				title: "Merk",
-				opties: brands,
+				opties: getUniqiueBrands(searchResults),
 			},
 		],
 	};
