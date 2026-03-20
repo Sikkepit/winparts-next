@@ -1,3 +1,5 @@
+"use client";
+
 import { CategoryType, ProductType } from "@/types/types";
 import ProductCard from "../product/ProductCard";
 import SelectedFilters from "../filters/SelectedFilters";
@@ -14,7 +16,6 @@ export default function OverviewMain({ category, products, filterObject }: Overv
 	const toastRef = useRef<ToastRefType>(null);
 
 	const handleAddToCart = (product: ProductType) => {
-		console.log(product);
 		toastRef.current?.showMessage(`${product.title} is toegevoegd aan je winkelwagentje`);
 	};
 

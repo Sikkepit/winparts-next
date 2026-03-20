@@ -38,3 +38,27 @@ export const getFilteredProducts = (products: ProductType[], filterObj: Record<s
 
 	return filteredProducts;
 };
+
+/**
+ * products filtered by search query
+ */
+export const getSearchResults = (products: ProductType[], searchQuery: string) => {
+	if (!searchQuery) return products;
+
+	return products.filter((product) => {
+		searchQuery = searchQuery.toLowerCase();
+
+		if (product.id.toString().includes(searchQuery)) {
+			return true;
+		}
+
+		if (
+			product.title.toLowerCase().includes(searchQuery) ||
+			product.description.toLowerCase().includes(searchQuery)
+		) {
+			return true;
+		}
+
+		return false;
+	});
+};

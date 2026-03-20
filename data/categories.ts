@@ -1,6 +1,6 @@
 import { CategoryType } from "@/types/types";
 
-const ruitenwissers: CategoryType = {
+const ruitenwissersCategory: CategoryType = {
 	id: 469,
 	title: "Ruitenwissers",
 	intro: `Versleten ruitenwissers piepen of laten strepen achter op uw raam. Daarnaast verwijderen
@@ -21,7 +21,7 @@ const ruitenwissers: CategoryType = {
 	],
 };
 
-const olie: CategoryType = {
+const olieCategory: CategoryType = {
 	id: 734,
 	title: "Motorolie",
 	intro: `Motorolie smeert en koelt het motorblok, zodat uw motor goed en efficiënt kan draaien en minder slijt. Daarnaast weekt 
@@ -58,7 +58,7 @@ const olie: CategoryType = {
 	],
 };
 
-const accu: CategoryType = {
+const accuCategory: CategoryType = {
 	id: 52,
 	title: "Accu",
 	intro: `De accu levert stroom voor het starten en alle elektrische apparaten van de auto, zoals de lampen, radio, 
@@ -108,7 +108,14 @@ const accu: CategoryType = {
 	],
 };
 
-export const categories = [ruitenwissers, olie, accu];
+export const searchCategory: CategoryType = {
+	id: 0,
+	title: "Zoekresultaten",
+	intro: ``,
+	filters: [],
+};
+
+export const categories = [ruitenwissersCategory, olieCategory, accuCategory, searchCategory];
 
 export const getCategoryDetails = (id: number) => {
 	return categories.find((c) => c.id === id);

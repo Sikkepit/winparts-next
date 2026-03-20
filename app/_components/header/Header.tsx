@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import HeaderUsps from "./HeaderUsps";
 import HeaderSearch from "./HeaderSearch";
 import HeaderCategories from "./HeaderCategories";
@@ -10,13 +11,15 @@ export default function Header() {
 		<header className="header">
 			<section className="grid grid-cols-12">
 				<div className="col-span-3 header__logo">
-					<Image
-						src="/logo2.webp"
-						alt="Winparts logo"
-						width={160}
-						height={160}
-						loading="eager"
-					/>
+					<Link href="/">
+						<Image
+							src="/logo.webp"
+							alt="Winparts logo"
+							width={160}
+							height={160}
+							loading="eager"
+						/>
+					</Link>
 				</div>
 
 				<div className="col-span-9 header__content">
