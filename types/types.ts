@@ -9,21 +9,23 @@ export type ProductType = {
 	deliveryInfo: string;
 	suggestedPrice: number | null;
 	retailPrice: number;
-	details: {
-		info?: string;
-		lengtemm?: string;
-		monteerwijze?: string;
-		type?: string;
-		aantal?: string;
-		garantie?: string;
-		ruitenwisserbladuitvoering?: string;
-		typeruitenwisser?: string;
-		lengteinch?: string;
-		inbouwplaats?: string;
-		hoeveelheid?: string;
-		product?: string;
-		linksrechtsbesturing?: string;
-	};
+	details: ProductDetailsType;
+};
+
+type ProductDetailsType = {
+	info?: string;
+	lengtemm?: string;
+	monteerwijze?: string;
+	type?: string;
+	aantal?: string;
+	garantie?: string;
+	ruitenwisserbladuitvoering?: string;
+	typeruitenwisser?: string;
+	lengteinch?: string;
+	inbouwplaats?: string;
+	hoeveelheid?: string;
+	product?: string;
+	linksrechtsbesturing?: string;
 };
 
 export type FilterType = {

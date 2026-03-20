@@ -1,0 +1,47 @@
+:root {
+	--color-purple: #5200e5;
+	--color-persian: #330a80;
+
+	--color-gallery-100: #eeeeee;
+	--color-gallery-200: #ececec;
+
+	--color-alabaster: #f9f9f9;
+	--color-cranberry: #ed4770;
+
+	--color-orange: #ff9933;
+	--color-poppy: #ff9900;
+	--color-flush: #ff8000;
+
+	--color-succes: #008000;
+
+	--color-text: var(--color-black);
+	--color-focus: var(--color-orange);
+	--color-border: var(--color-gallery-100);
+}
+
+body {
+	min-height: 100dvh;
+	display: flex;
+	flex-direction: column;
+
+	font-size: 0.875rem;
+	font-weight: 300;
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	background-color: var(--color-white);
+	flex-grow: 1;
+}
+
+section {
+	max-width: 1160px;
+	width: 100%;
+}
+
+:focus-visible {
+	outline: 2px solid var(--color-focus);
+}
