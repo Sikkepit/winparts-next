@@ -1,12 +1,21 @@
 import { CategoryType, ProductType } from "@/types/types";
 import ProductCard from "../product/ProductCard";
+import SelectedFilters from "../filters/SelectedFilters";
 
-export default function OverviewMain({ category, products }: { category: CategoryType; products: ProductType[] }) {
+type OverviewMainProps = {
+	category: CategoryType;
+	products: ProductType[];
+	filterObject: Record<string, string[]>;
+};
+
+export default function OverviewMain({ category, products, filterObject }: OverviewMainProps) {
 	return (
 		<div className="overview__main">
 			<h1>{category.title}</h1>
 			<p>{category.intro}</p>
 			<span className="overview__result-count">{products.length} product(en)</span>
+
+			<SelectedFilters filterObject={filterObject} />
 
 			<div className="flex flex-col gap-4">
 				{products.map((product) => (
@@ -14,7 +23,7 @@ export default function OverviewMain({ category, products }: { category: Categor
 				))}
 
 				{products.length === 0 && (
-					<div className="text-center">
+					<div className="text-center mt-8">
 						Er zijn geen producten die voldoen aan de combinatie van gekozen
 						filterinstellingen
 					</div>

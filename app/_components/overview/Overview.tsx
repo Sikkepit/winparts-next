@@ -9,7 +9,11 @@ import { useState } from "react";
 import { getProductsByCategory } from "@/data/products";
 
 export default function Overview() {
-	const categoryId = 469; // TODO Dynamisch maken;
+	// 469 = ruitenwissers
+	// 734 = olie
+	// 52 = accu
+
+	const categoryId = 52; // TODO Dynamisch maken;
 	const category = getCategoryDetails(categoryId);
 	const products = getProductsByCategory(categoryId);
 
@@ -32,6 +36,7 @@ export default function Overview() {
 			<div className="col-span-9">
 				<OverviewMain
 					category={category}
+					filterObject={filterObject}
 					products={getFilteredProducts(products, filterObject)}
 				/>
 			</div>

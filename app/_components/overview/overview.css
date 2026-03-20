@@ -13,6 +13,19 @@
 			font-size: 1rem;
 			color: var(--color-star-dust);
 		}
+
+		.overview__active-filters {
+			display: flex;
+			gap: 0.5rem;
+
+			li {
+				background-color: var(--color-orange);
+				color: var(--color-white);
+				padding: 0.5rem 1rem;
+				font-weight: 500;
+				border-radius: 8px;
+			}
+		}
 	}
 
 	.overview__filters {
