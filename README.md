@@ -7,4 +7,3 @@ https://winparts-next.vercel.app/
 
 You can check out the tool I used for gathering product data at
 https://github.com/Sikkepit/winparts
-https://dennishemstra.com/winparts/
