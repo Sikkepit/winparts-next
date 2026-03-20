@@ -12,6 +12,13 @@ export default function OverviewMain({ category, products }: { category: Categor
 				{products.map((product) => (
 					<ProductCard product={product} key={product.id} />
 				))}
+
+				{products.length === 0 && (
+					<div className="text-center">
+						Er zijn geen producten die voldoen aan de combinatie van gekozen
+						filterinstellingen
+					</div>
+				)}
 			</div>
 		</div>
 	);
