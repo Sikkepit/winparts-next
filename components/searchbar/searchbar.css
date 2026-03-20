@@ -23,6 +23,7 @@
 	button {
 		border-radius: 999px;
 		padding: 0.25rem;
+		margin-inline-end: 0.75rem;
 	}
 
 	svg {
