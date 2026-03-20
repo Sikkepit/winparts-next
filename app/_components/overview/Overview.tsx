@@ -8,12 +8,7 @@ import { getFilterDto, getFilteredProducts } from "@/utils/categoryUtil";
 import { useState } from "react";
 import { getProductsByCategory } from "@/data/products";
 
-export default function Overview() {
-	// 469 = ruitenwissers
-	// 734 = olie
-	// 52 = accu
-
-	const categoryId = 52; // TODO Dynamisch maken;
+export default function Overview({ categoryId = 469 }: { categoryId?: number }) {
 	const category = getCategoryDetails(categoryId);
 	const products = getProductsByCategory(categoryId);
 
