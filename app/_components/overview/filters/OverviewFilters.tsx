@@ -3,15 +3,13 @@ import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
 import { Filter } from "./Filter";
 
-export default function OverviewFilters({
-	category,
-	filterObject,
-	setFilterObject,
-}: {
+type OverviewFiltersProps = {
 	category: CategoryType;
 	filterObject: Record<string, string[]>;
 	setFilterObject: Dispatch<SetStateAction<Record<string, string[]>>>;
-}) {
+};
+
+export default function OverviewFilters({ category, filterObject, setFilterObject }: OverviewFiltersProps) {
 	const getValue = (id: string) => {
 		if (filterObject[id as keyof typeof filterObject]) {
 			return filterObject[id as keyof typeof filterObject];
