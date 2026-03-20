@@ -16,6 +16,7 @@ export default function Overview() {
 			<div className="col-span-3">
 				<OverviewFilters category={category} />
 			</div>
+
 			<div className="col-span-9">
 				<OverviewMain category={category} />
 			</div>

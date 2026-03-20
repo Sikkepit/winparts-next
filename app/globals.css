@@ -3,16 +3,20 @@
 :root {
 	--color-purple: #5200e5;
 	--color-persian: #330a80;
-	--color-orange: #ff9933;
+
 	--color-gallery-100: #eeeeee;
 	--color-gallery-200: #ececec;
+
 	--color-alabaster: #f9f9f9;
 	--color-cranberry: #ed4770;
+
+	--color-orange: #ff9933;
 	--color-poppy: #ff9900;
 	--color-flush: #ff8000;
+
 	--color-succes: #008000;
 
-	--color-font-primary: var(--color-black);
+	--color-text: var(--color-black);
 	--color-focus: var(--color-orange);
 	--color-border: var(--color-gallery-100);
 }
@@ -31,6 +35,13 @@ body {
 	flex-grow: 1;
 }
 
+.main,
+.footer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .footer {
 	background-color: var(--color-purple);
 	color: var(--color-white);
@@ -39,13 +50,6 @@ body {
 section {
 	max-width: 1160px;
 	width: 100%;
-}
-
-.main,
-.footer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 }
 
 :focus-visible {

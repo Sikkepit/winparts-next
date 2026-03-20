@@ -61,6 +61,10 @@
 			padding: 0.5rem 1rem;
 			border-radius: 8px;
 
+			&:focus {
+				outline: 2px solid var(--color-persian);
+			}
+
 			.icon {
 				fill: var(--color-white);
 				height: 1.5rem;
