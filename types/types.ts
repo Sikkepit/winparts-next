@@ -12,24 +12,7 @@ export type ProductType = {
 	details: ProductDetailsType;
 };
 
-type ProductDetailsType = {
-	info?: string;
-	lengtemm?: string;
-	monteerwijze?: string;
-	type?: string;
-	aantal?: string;
-	garantie?: string;
-	ruitenwisserbladuitvoering?: string;
-	typeruitenwisser?: string;
-	lengteinch?: string;
-	inbouwplaats?: string;
-	hoeveelheid?: string;
-	product?: string;
-	linksrechtsbesturing?: string;
-	passendeadapter?: string;
-	bijgevoegdeadapter?: string;
-	styling?: string;
-};
+type ProductDetailsType = Record<string, string>;
 
 export type FilterType = {
 	id: string;
