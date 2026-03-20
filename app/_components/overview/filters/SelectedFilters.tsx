@@ -14,7 +14,9 @@ export default function SelectedFilters({ filterObject }: { filterObject: Record
 	return (
 		<ul className="overview__active-filters">
 			{filters.map((filter) => (
-				<li key={filter}>{filter}</li>
+				<li className="truncate" key={filter} title={filter}>
+					{filter}
+				</li>
 			))}
 		</ul>
 	);

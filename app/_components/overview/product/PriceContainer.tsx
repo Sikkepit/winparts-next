@@ -3,7 +3,7 @@ import { displayAsCurrency } from "@/utils/dataUtils";
 import AddToCardButton from "./AddToCartButton";
 import WinPrijs from "./WInPrijs";
 
-export default function PriceContainer({ product }: { product: ProductType }) {
+export default function PriceContainer({ product, onAddToCart }: { product: ProductType; onAddToCart: () => void }) {
 	return (
 		<div className="product-card__price-container">
 			<div className="flex flex-col items-end py-3 gap-1 h-full">
@@ -20,7 +20,7 @@ export default function PriceContainer({ product }: { product: ProductType }) {
 						{displayAsCurrency(product.retailPrice)}
 					</span>
 
-					<AddToCardButton product={product} />
+					<AddToCardButton onClick={() => onAddToCart()} />
 				</div>
 
 				<span className="product-card__levertijd">

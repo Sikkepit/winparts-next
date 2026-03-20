@@ -4,7 +4,7 @@ import { ProductType } from "@/types/types";
 import PriceContainer from "./PriceContainer";
 import ProductInfo from "./ProductInfo";
 
-export default function ProductCard({ product }: { product: ProductType }) {
+export default function ProductCard({ product, onAddToCart }: { product: ProductType; onAddToCart: () => void }) {
 	return (
 		<div className="product-card">
 			<div className="product-card__image">
@@ -19,7 +19,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
 			</div>
 
 			<ProductInfo product={product} />
-			<PriceContainer product={product} />
+			<PriceContainer product={product} onAddToCart={onAddToCart} />
 		</div>
 	);
 }

@@ -15,7 +15,12 @@ export default function Overview({ categoryId = 469 }: { categoryId?: number }) 
 	const [filterObject, setFilterObject] = useState<Record<string, string[]>>(getFilterDto(category?.filters));
 
 	if (!category) {
-		return <>Categorie niet gevonden</>;
+		return (
+			<div className="py-16 text-center">
+				<h1>Oeps, we zijn uit de bocht gevlogen</h1>
+				<span>Gebruik de navigatie om verder te gaan</span>
+			</div>
+		);
 	}
 
 	return (
