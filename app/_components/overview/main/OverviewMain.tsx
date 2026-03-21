@@ -1,10 +1,6 @@
-"use client";
-
 import { CategoryType, ProductType } from "@/types/types";
 import ProductCard from "../product/ProductCard";
 import SelectedFilters from "../filters/SelectedFilters";
-import Toast, { ToastRefType } from "@/components/toast/Toast";
-import { useRef } from "react";
 
 type OverviewMainProps = {
 	category: CategoryType;
@@ -13,12 +9,6 @@ type OverviewMainProps = {
 };
 
 export default function OverviewMain({ category, products, filterObject }: OverviewMainProps) {
-	const toastRef = useRef<ToastRefType>(null);
-
-	const handleAddToCart = (product: ProductType) => {
-		toastRef.current?.showMessage(`${product.title} is toegevoegd aan je winkelwagentje`);
-	};
-
 	return (
 		<div className="overview__main">
 			<h1>{category.title}</h1>
@@ -27,15 +17,9 @@ export default function OverviewMain({ category, products, filterObject }: Overv
 
 			<SelectedFilters filterObject={filterObject} />
 
-			<Toast ref={toastRef} />
-
 			<div className="flex flex-col gap-4">
 				{products.map((product) => (
-					<ProductCard
-						product={product}
-						key={product.id}
-						onAddToCart={() => handleAddToCart(product)}
-					/>
+					<ProductCard product={product} key={product.id} />
 				))}
 
 				{products.length === 0 && (

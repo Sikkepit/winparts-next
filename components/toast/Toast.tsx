@@ -1,45 +1,7 @@
-import { RefObject, useImperativeHandle, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import "./toast.css";
 
-export type ToastRefType = {
-	showMessage: (message: string) => void;
-};
-
-export default function Toast({ ref }: { ref: RefObject<ToastRefType | null> }) {
-	const [showToast, setShowToast] = useState(false);
-	const [message, setMessage] = useState<string>("");
-
-	const timer = useRef<NodeJS.Timeout | null>(null);
-
-	const showMessage = (newMessage: string) => {
-		if (timer.current) {
-			clearTimeout(timer.current);
-			timer.current = null;
-		}
-
-		setShowToast(false);
-
-		setTimeout(() => {
-			setMessage(newMessage);
-			setShowToast(true);
-
-			// Nested timeout so the second assignment of setShowToast gets called on the next tick
-			timer.current = setTimeout(() => {
-				setShowToast(false);
-				timer.current = null;
-			}, 4000);
-		}, 0);
-	};
-
-	useImperativeHandle(ref, () => {
-		return {
-			showMessage,
-		};
-	});
-
-	if (!showToast) return null;
-
+export default function Toast({ message }: { message: string }) {
 	return createPortal(
 		<div className={`toast toast--success`}>
 			<div className="toast__icon-container">
