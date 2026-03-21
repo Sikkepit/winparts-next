@@ -3,6 +3,7 @@
 	flex-direction: column;
 	align-items: center;
 
+	margin-block-start: 4rem;
 	background-color: var(--color-purple);
 	color: var(--color-white);
 
