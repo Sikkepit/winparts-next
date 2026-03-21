@@ -14,7 +14,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 49.61,
 		retailPrice: 25.31,
 		details: {
-			info: "Voorzijde",
+			inbouwplaats: "Voorzijde",
 			lengtemm: "650 / 450",
 			monteerwijze: "Klikbevestiging",
 			type: "Flatblade",
@@ -35,7 +35,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 13.31,
 		retailPrice: 6.92,
 		details: {
-			info: "Achterzijde",
+			inbouwplaats: "Achterzijde",
 			lengtemm: "280",
 			monteerwijze: "Klikbevestiging",
 			type: "Flatblade",
@@ -77,7 +77,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 14.76,
 		retailPrice: 7.51,
 		details: {
-			info: "Achterzijde",
+			inbouwplaats: "Achterzijde",
 			lengtemm: "300",
 			monteerwijze: "Klikbevestiging",
 			type: "Traditioneel",
@@ -98,7 +98,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 50.52,
 		retailPrice: 25.5,
 		details: {
-			info: "Voorzijde",
+			inbouwplaats: "Voorzijde",
 			lengtemm: "600 / 400, 600, 400",
 			monteerwijze: "Klikbevestiging",
 			type: "Flatblade",
@@ -119,7 +119,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 14.64,
 		retailPrice: 7.51,
 		details: {
-			info: "Achterzijde",
+			inbouwplaats: "Achterzijde",
 			lengtemm: "290",
 			monteerwijze: "Klikbevestiging",
 			type: "Traditioneel",
@@ -140,7 +140,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 13.55,
 		retailPrice: 7.16,
 		details: {
-			info: "Achterzijde",
+			inbouwplaats: "Achterzijde",
 			lengtemm: "300",
 			monteerwijze: "Haakbevestiging",
 			type: "Traditioneel",
@@ -161,7 +161,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 30.49,
 		retailPrice: 15.54,
 		details: {
-			info: "Voorzijde",
+			inbouwplaats: "Voorzijde",
 			lengtemm: "650",
 			monteerwijze: "Haakbevestiging",
 			type: "Traditioneel",
@@ -182,7 +182,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 52.03,
 		retailPrice: 25.96,
 		details: {
-			info: "Voorzijde",
+			inbouwplaats: "Voorzijde",
 			lengtemm: "600 / 400, 600, 400",
 			monteerwijze: "Klikbevestiging",
 			type: "Flatblade",
@@ -203,7 +203,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 31.8,
 		retailPrice: 17.47,
 		details: {
-			info: "Voorzijde",
+			inbouwplaats: "Voorzijde",
 			lengtemm: "650",
 			monteerwijze: "Universeel",
 			type: "Flatblade",
@@ -224,7 +224,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 15.25,
 		retailPrice: 8.08,
 		details: {
-			info: "Achterzijde",
+			inbouwplaats: "Achterzijde",
 			lengtemm: "330",
 			monteerwijze: "Klikbevestiging",
 			type: "Flatblade",
@@ -245,7 +245,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 14.52,
 		retailPrice: 7.51,
 		details: {
-			info: "Achterzijde",
+			inbouwplaats: "Achterzijde",
 			lengtemm: "350",
 			monteerwijze: "Klikbevestiging",
 			type: "Traditioneel",
@@ -287,7 +287,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 51.06,
 		retailPrice: 27.79,
 		details: {
-			info: "Voorzijde",
+			inbouwplaats: "Voorzijde",
 			lengtemm: "380 / 650, 650, 380",
 			monteerwijze: "Klikbevestiging",
 			type: "Flatblade",
@@ -308,7 +308,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 13.43,
 		retailPrice: 7,
 		details: {
-			info: "Achterzijde",
+			inbouwplaats: "Achterzijde",
 			lengtemm: "300",
 			monteerwijze: "Klikbevestiging",
 			type: "Traditioneel",
@@ -329,7 +329,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 52.88,
 		retailPrice: 28.88,
 		details: {
-			info: "Voorzijde",
+			inbouwplaats: "Voorzijde",
 			lengtemm: "650 / 500, 650, 500",
 			monteerwijze: "Klikbevestiging",
 			type: "Flatblade",
@@ -350,7 +350,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 28.8,
 		retailPrice: 15.54,
 		details: {
-			info: "Voorzijde",
+			inbouwplaats: "Voorzijde",
 			lengtemm: "600",
 			monteerwijze: "Universeel",
 			type: "Flatblade",
@@ -371,7 +371,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 13.92,
 		retailPrice: 7.24,
 		details: {
-			info: "Achterzijde",
+			inbouwplaats: "Achterzijde",
 			lengtemm: "250",
 			monteerwijze: "Klikbevestiging",
 			type: "Traditioneel",
@@ -392,7 +392,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 16.21,
 		retailPrice: 8.16,
 		details: {
-			info: "Achterzijde",
+			inbouwplaats: "Achterzijde",
 			lengtemm: "300",
 			monteerwijze: "Klikbevestiging",
 			type: "Traditioneel",
@@ -413,7 +413,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 50.34,
 		retailPrice: 26.27,
 		details: {
-			info: "Voorzijde links en rechts",
+			inbouwplaats: "Voorzijde",
 			lengtemm: "600 / 450, 600, 450",
 			monteerwijze: "Klikbevestiging",
 			type: "Flatblade",
@@ -707,7 +707,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 16.94,
 		retailPrice: 7.42,
 		details: {
-			info: "Voorzijde",
+			inbouwplaats: "Voorzijde",
 			lengtemm: "400",
 			monteerwijze: "Haakbevestiging",
 			type: "Traditioneel",
@@ -749,7 +749,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 42.5,
 		retailPrice: 18.95,
 		details: {
-			info: "Voorzijde",
+			inbouwplaats: "Voorzijde",
 			lengtemm: "650",
 			monteerwijze: "Haakbevestiging",
 			type: "Traditioneel",
@@ -938,7 +938,7 @@ const ruitenwissers: ProductType[] = [
 		suggestedPrice: 11.05,
 		retailPrice: 4.32,
 		details: {
-			info: "Voorzijde",
+			inbouwplaats: "Voorzijde",
 			lengtemm: "530",
 			aantal: "1",
 			ruitenwisserbladuitvoering: "Beugel wisserblad",
