@@ -7,6 +7,7 @@ export default function HeaderSearch() {
 	const router = useRouter();
 
 	const handleSubmit = (searchValue: string) => {
+		if (!searchValue) return;
 		router.push(`/zoeken/${searchValue.toLowerCase()}`);
 	};
 
