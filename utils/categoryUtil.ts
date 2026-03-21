@@ -16,7 +16,7 @@ export const getFilterDto = (filters: FilterType[] | undefined): Record<string, 
  * Retrieves a nested value from an object using a string path
  */
 export const getPath = (obj: unknown, path: string): unknown => {
-	const nestedKeys = path.split(/[/]/);
+	const nestedKeys = path.split("/");
 
 	// Start: acc = product
 	// Step 1: acc = product["category"]
@@ -40,7 +40,8 @@ export const getFilteredProducts = (products: ProductType[], filterObj: Record<s
 };
 
 /**
- * products filtered by search query
+ * Get products filtered by search query.
+ * Checks for (partial) matches on id, title, description and brand.
  */
 export const getSearchResults = (products: ProductType[], searchQuery: string) => {
 	if (!searchQuery) return products;
@@ -48,13 +49,11 @@ export const getSearchResults = (products: ProductType[], searchQuery: string) =
 	return products.filter((product) => {
 		searchQuery = searchQuery.toLowerCase();
 
-		if (product.id.toString().includes(searchQuery)) {
-			return true;
-		}
-
 		if (
+			product.id.toString().includes(searchQuery) ||
 			product.title.toLowerCase().includes(searchQuery) ||
-			product.description.toLowerCase().includes(searchQuery)
+			product.description.toLowerCase().includes(searchQuery) ||
+			product.brand.toLowerCase().includes(searchQuery)
 		) {
 			return true;
 		}
