@@ -50,11 +50,13 @@ export default function SearchOverview({ category, searchQuery }: SearchOverview
 	return (
 		<section className="grid grid-cols-12 gap-8 overview">
 			<div className="col-span-3">
-				<OverviewFilters
-					category={searchCategory}
-					filterObject={filterObject}
-					setFilterObject={setFilterObject}
-				/>
+				{filteredProducts.length > 0 && (
+					<OverviewFilters
+						category={searchCategory}
+						filterObject={filterObject}
+						setFilterObject={setFilterObject}
+					/>
+				)}
 			</div>
 
 			<div className="col-span-9">
