@@ -7,12 +7,17 @@ import "./overview.css";
 import { getFilterDto, getFilteredProducts } from "@/utils/categoryUtil";
 import { useState } from "react";
 import { getProductsByCategory } from "@/data/products";
+import SelectedFilters from "./filters/SelectedFilters";
 
 export default function Overview({ categoryId = 469 }: { categoryId?: number }) {
 	const category = getCategoryDetails(categoryId);
 	const products = getProductsByCategory(categoryId);
 
 	const [filterObject, setFilterObject] = useState<Record<string, string[]>>(getFilterDto(category?.filters));
+
+	const clearFilters = () => {
+		setFilterObject(getFilterDto(category?.filters));
+	};
 
 	if (!category) {
 		return (
@@ -36,9 +41,10 @@ export default function Overview({ categoryId = 469 }: { categoryId?: number }) 
 			<div className="col-span-9">
 				<OverviewMain
 					category={category}
-					filterObject={filterObject}
 					products={getFilteredProducts(products, filterObject)}
-				/>
+				>
+					<SelectedFilters filterObject={filterObject} clearFilters={clearFilters} />
+				</OverviewMain>
 			</div>
 		</section>
 	);

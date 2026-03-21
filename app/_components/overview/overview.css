@@ -18,12 +18,24 @@
 			display: flex;
 			gap: 0.5rem;
 
-			li {
-				background-color: var(--color-orange);
-				color: var(--color-white);
+			.overview__delete-filters,
+			.overview__filter {
 				padding: 0.5rem 1rem;
 				font-weight: 500;
 				border-radius: 8px;
+				border-width: 1px;
+				border-style: solid;
+			}
+
+			.overview__delete-filters {
+				color: var(--color-persian);
+				border-color: var(--color-persian);
+			}
+
+			.overview__filter {
+				background-color: var(--color-orange);
+				color: var(--color-white);
+				border-color: var(--color-orange);
 			}
 		}
 	}

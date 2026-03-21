@@ -11,8 +11,12 @@ export default function Checkbox({
 }) {
 	return (
 		<label className="checkbox">
-			<input type="checkbox" onChange={(e) => onChange(e.target.checked)} value={value.toString()} />
-			<span className="checkbox__checkmark"></span>
+			<input
+				type="checkbox"
+				onChange={(e) => onChange(e.target.checked)}
+				checked={value ?? false}
+				autoComplete="off"
+			/>
 			<span>{label}</span>
 		</label>
 	);
