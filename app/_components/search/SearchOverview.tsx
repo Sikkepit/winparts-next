@@ -8,6 +8,7 @@ import { useState } from "react";
 import OverviewMain from "../overview/main/OverviewMain";
 import OverviewFilters from "../overview/filters/OverviewFilters";
 import "../overview/overview.css";
+import SelectedFilters from "../overview/filters/SelectedFilters";
 
 type SearchOverviewProps = { category: CategoryType; searchQuery: string };
 
@@ -15,6 +16,12 @@ export default function SearchOverview({ category, searchQuery }: SearchOverview
 	const [filterObject, setFilterObject] = useState<Record<string, string[]>>({
 		brand: [],
 	});
+
+	const clearFilters = () => {
+		setFilterObject({
+			brand: [],
+		});
+	};
 
 	const searchResults = getSearchResults(products, searchQuery);
 	const filteredProducts = getFilteredProducts(searchResults, filterObject);
@@ -51,11 +58,9 @@ export default function SearchOverview({ category, searchQuery }: SearchOverview
 			</div>
 
 			<div className="col-span-9">
-				<OverviewMain
-					category={searchCategory}
-					filterObject={filterObject}
-					products={filteredProducts}
-				/>
+				<OverviewMain category={category} products={filteredProducts}>
+					<SelectedFilters filterObject={filterObject} clearFilters={clearFilters} />
+				</OverviewMain>
 			</div>
 		</section>
 	);
