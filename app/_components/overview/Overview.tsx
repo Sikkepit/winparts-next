@@ -2,7 +2,7 @@
 
 import { getCategoryDetails } from "@/data/categories";
 import "./overview.css";
-import { getFilterDto } from "@/utils/categoryUtil";
+import { getFilterDto, getFilteredProducts } from "@/utils/categoryUtil";
 import { useState } from "react";
 import { getProductsByCategory } from "@/data/products";
 import OverviewContainer from "./container/OverviewContainer";
@@ -21,7 +21,7 @@ export default function Overview({ categoryId = 469 }: { categoryId?: number }) 
 		<OverviewContainer
 			category={category}
 			filterObject={filterObject}
-			products={products}
+			products={getFilteredProducts(products, filterObject)}
 			clearFilters={clearFilters}
 			setFilterObject={setFilterObject}
 		/>
