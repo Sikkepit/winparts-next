@@ -58,7 +58,7 @@ export default function SearchOverview({ category, searchQuery }: SearchOverview
 			</div>
 
 			<div className="col-span-9">
-				<OverviewMain category={category} products={filteredProducts}>
+				<OverviewMain category={searchCategory} products={filteredProducts}>
 					<SelectedFilters filterObject={filterObject} clearFilters={clearFilters} />
 				</OverviewMain>
 			</div>
