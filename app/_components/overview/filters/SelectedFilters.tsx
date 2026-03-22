@@ -23,7 +23,7 @@ export default function SelectedFilters({ filterObject, clearFilters }: Selected
 				<li>
 					<button
 						type="button"
-						className="overview__delete-filters"
+						className="truncate overview__delete-filters"
 						onClick={clearFilters}
 					>
 						Wis Filters
