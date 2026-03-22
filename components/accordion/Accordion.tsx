@@ -19,7 +19,9 @@ export default function Accordion({ title, children }: AccordionProps) {
 
 			<div className="accordion__body">
 				<div className="overflow-hidden">
-					<div className="accordion__content">{children}</div>
+					<div className="accordion__content" inert={!isOpen}>
+						{children}
+					</div>
 				</div>
 			</div>
 		</div>
