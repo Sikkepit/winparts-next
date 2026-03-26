@@ -15,6 +15,7 @@ export default function Checkbox({ onChange, label, value }: CheckboxProps) {
 				checked={value ?? false}
 				autoComplete="off"
 			/>
+
 			<span>{label}</span>
 		</label>
 	);

@@ -5,8 +5,8 @@ import { CategoryType, ProductType } from "@/types/types";
 import { getFilteredProducts, getSearchResults } from "@/utils/categoryUtil";
 import { useState } from "react";
 
-import "../overview/overview.css";
 import OverviewContainer from "../overview/container/OverviewContainer";
+import "../overview/overview.css";
 
 type SearchOverviewProps = { category: CategoryType; searchQuery: string };
 
@@ -17,6 +17,16 @@ export default function SearchOverview({ category, searchQuery }: SearchOverview
 
 	const searchResults = getSearchResults(products, searchQuery);
 	const filteredProducts = getFilteredProducts(searchResults, filterObject);
+
+	const getUniqiueBrands = (products: ProductType[]) => {
+		const brands: string[] = [];
+
+		products.forEach((p) => {
+			if (p.brand && !brands.includes(p.brand)) brands.push(p.brand);
+		});
+
+		return brands.sort();
+	};
 
 	const searchCategory = {
 		...category,
@@ -34,16 +44,6 @@ export default function SearchOverview({ category, searchQuery }: SearchOverview
 			brand: [],
 		});
 	};
-
-	function getUniqiueBrands(products: ProductType[]) {
-		const brands: string[] = [];
-
-		products.forEach((p) => {
-			if (p.brand && !brands.includes(p.brand)) brands.push(p.brand);
-		});
-
-		return brands.sort();
-	}
 
 	return (
 		<OverviewContainer
