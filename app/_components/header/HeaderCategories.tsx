@@ -3,17 +3,17 @@ import Link from "next/link";
 export default function HeaderCategories() {
 	return (
 		<ul className="header__categories">
-			<li>
-				<Link href={"/category/734"}>Olie</Link>
-			</li>
-
-			<li>
-				<Link href={"/category/469"}>Ruitenwissers</Link>
-			</li>
-
-			<li>
-				<Link href={"/category/52"}>Accu</Link>
-			</li>
+			<Category href="/category/734" label="Olie" />
+			<Category href="/category/469" label="Ruitenwissers" />
+			<Category href="/category/52" label="Accu" />
 		</ul>
+	);
+}
+
+function Category({ href, label }: { href: string; label: string }) {
+	return (
+		<li>
+			<Link href={href}>{label}</Link>
+		</li>
 	);
 }
