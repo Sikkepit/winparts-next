@@ -33,12 +33,15 @@ function CartProduct({ item }: { item: CartItemType }) {
 	return (
 		<tr>
 			<td>{item.quantity}</td>
-			<td className="truncated">{product.title}</td>
+			<td className="truncated" title={product.title}>
+				{product.title}
+			</td>
 			<td>{displayAsCurrency(item.quantity * product.retailPrice)}</td>
 			<td>
 				<button
 					type="button"
 					className="header-cart__delete"
+					title="Verwijder uit mandje"
 					onClick={() => removeFromCart(product.id)}
 				>
 					<Icon variant="trash" className="icon" />
