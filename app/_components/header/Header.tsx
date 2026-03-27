@@ -3,6 +3,7 @@ import Link from "next/link";
 import HeaderUsps from "./HeaderUsps";
 import HeaderSearch from "./HeaderSearch";
 import HeaderCategories from "./HeaderCategories";
+import HeaderCart from "./HeaderCart";
 
 import "./header.css";
 
@@ -26,6 +27,7 @@ export default function Header() {
 					<HeaderUsps />
 					<HeaderSearch />
 					<HeaderCategories />
+					<HeaderCart />
 				</div>
 			</section>
 		</header>

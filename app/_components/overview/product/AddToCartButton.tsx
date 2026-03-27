@@ -2,15 +2,18 @@
 
 import Icon from "@/components/icon/Icon";
 import Toast from "@/components/toast/Toast";
+import { useCartStore } from "@/store/cartStore";
 import { ProductType } from "@/types/types";
 import { useRef, useState } from "react";
 
 export default function AddToCardButton({ product }: { product: ProductType }) {
 	const [showToast, setShowToast] = useState(false);
 	const timer = useRef<NodeJS.Timeout | null>(null);
+	const { addToCart } = useCartStore();
 
 	const handleOpen = () => {
 		setShowToast(true);
+		addToCart(product.id);
 
 		if (timer.current) {
 			clearTimeout(timer.current);
