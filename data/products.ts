@@ -2950,3 +2950,7 @@ export const products = [...ruitenwissers, ...olie, ...accu];
 export const getProductsByCategory = (categoryId: number) => {
 	return products.filter((p) => p.category === categoryId);
 };
+
+export const getProductById = (id: number) => {
+	return products.find((p) => p.id === id);
+};

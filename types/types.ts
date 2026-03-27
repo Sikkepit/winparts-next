@@ -26,3 +26,8 @@ export type CategoryType = {
 	intro: string;
 	filters: FilterType[];
 };
+
+export type CartItemType = {
+	id: number;
+	quantity: number;
+};

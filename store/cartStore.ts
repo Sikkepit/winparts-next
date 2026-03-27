@@ -1,13 +1,9 @@
+import { CartItemType } from "@/types/types";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-type CartItem = {
-	id: number;
-	quantity: number;
-};
-
 type CartStore = {
-	cart: CartItem[];
+	cart: CartItemType[];
 
 	addToCart: (id: number) => void;
 	removeFromCart: (id: number) => void;
