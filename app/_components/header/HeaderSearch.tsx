@@ -11,5 +11,5 @@ export default function HeaderSearch() {
 		router.push(`/zoeken/${searchValue.toLowerCase()}`);
 	};
 
-	return <SearchBar onSubmit={handleSubmit} placeholder="Zoekt op titel, merk, beschrijving of artikelnummer" />;
+	return <SearchBar onSubmit={handleSubmit} placeholder="Zoek op titel, merk, beschrijving of artikelnummer" />;
 }
