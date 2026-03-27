@@ -28,7 +28,7 @@ export function Filter({ filter, value, onChange }: FilterProps) {
 						key={optie}
 						label={optie}
 						onChange={(checked) => handleChange(checked, optie)}
-						value={value.includes(optie)}
+						checked={value.includes(optie)}
 					/>
 				))}
 			</div>
