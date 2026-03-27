@@ -1,0 +1,31 @@
+.header-cart {
+	background-color: var(--color-white);
+	color: var(--color-text);
+	padding: 1rem;
+
+	table {
+		width: 100%;
+
+		td {
+			padding-inline-end: 0.75rem;
+
+			.header-cart__delete {
+				display: flex;
+				align-items: center;
+			}
+
+			.icon {
+				height: 1rem;
+				width: 1rem;
+			}
+		}
+	}
+
+	.truncated {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		width: 100%;
+		max-width: 0;
+	}
+}

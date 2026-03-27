@@ -5,17 +5,22 @@ import { useCartStore } from "@/store/cartStore";
 import { CartItemType } from "@/types/types";
 import { displayAsCurrency } from "@/utils/dataUtils";
 
+import "./headercart.css";
+import Icon from "@/components/icon/Icon";
+
 export default function HeaderCart() {
 	const { cart } = useCartStore();
 
 	return (
-		<table>
-			<tbody>
-				{cart.map((item) => (
-					<CartProduct item={item} key={item.id} />
-				))}
-			</tbody>
-		</table>
+		<div className="header-cart">
+			<table>
+				<tbody>
+					{cart.map((item) => (
+						<CartProduct item={item} key={item.id} />
+					))}
+				</tbody>
+			</table>
+		</div>
 	);
 }
 
@@ -28,11 +33,15 @@ function CartProduct({ item }: { item: CartItemType }) {
 	return (
 		<tr>
 			<td>{item.quantity}</td>
-			<td>{product.title}</td>
+			<td className="truncated">{product.title}</td>
 			<td>{displayAsCurrency(item.quantity * product.retailPrice)}</td>
 			<td>
-				<button type="button" onClick={() => removeFromCart(product.id)}>
-					Remove
+				<button
+					type="button"
+					className="header-cart__delete"
+					onClick={() => removeFromCart(product.id)}
+				>
+					<Icon variant="trash" className="icon" />
 				</button>
 			</td>
 		</tr>
