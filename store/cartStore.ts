@@ -11,6 +11,7 @@ type CartStore = {
 
 	addToCart: (id: number) => void;
 	removeFromCart: (id: number) => void;
+	clearCart: () => void;
 };
 
 export const useCartStore = create<CartStore>()(
@@ -37,6 +38,7 @@ export const useCartStore = create<CartStore>()(
 				set((state) => ({
 					cart: state.cart.filter((item) => item.id !== id),
 				})),
+			clearCart: () => set({ cart: [] }),
 		}),
 		{
 			name: "shopping-cart-storage",
