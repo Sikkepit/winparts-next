@@ -11,7 +11,6 @@ export default function HeaderCartButton({ onClick }: { onClick: () => void }) {
 	};
 
 	const handleClick = (e: React.MouseEvent) => {
-		e.stopPropagation();
 		onClick();
 	};
 
