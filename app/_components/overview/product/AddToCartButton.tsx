@@ -35,7 +35,7 @@ export default function AddToCardButton({ product }: { product: ProductType }) {
 	return (
 		<>
 			<button className="product-card__add-button" type="button" onClick={handleOpen}>
-				<Icon variant="shoppingCart" className="icon" />
+				<Icon variant="cartArrow" className="icon" />
 			</button>
 
 			{showToast && <Toast message={`${product.title} is toegevoegd aan je winkelwagentje`} />}

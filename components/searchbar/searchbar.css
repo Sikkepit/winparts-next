@@ -1,6 +1,7 @@
 .searchbar {
 	background-color: white;
 	border-radius: 400px;
+	flex-grow: 1;
 
 	display: flex;
 	align-items: center;
