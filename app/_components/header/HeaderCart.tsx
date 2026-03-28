@@ -2,7 +2,7 @@
 
 import { getProductById } from "@/data/products";
 import { useCartStore } from "@/store/cartStore";
-import { CartItemType, ProductType } from "@/types/types";
+import { ProductType } from "@/types/types";
 import { displayAsCurrency } from "@/utils/dataUtils";
 
 import "./headercart.css";
