@@ -16,6 +16,7 @@
 		width: 100%;
 		max-width: 35rem;
 		inset-block-start: 0.5rem;
+		border-radius: 12px;
 
 		table {
 			width: 100%;
