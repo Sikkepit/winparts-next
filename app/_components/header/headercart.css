@@ -11,7 +11,7 @@
 		background-color: var(--color-white);
 		color: var(--color-text);
 		padding-inline: 1.25rem;
-		padding-block: 1rem 2rem;
+		padding-block: 1rem;
 		position: absolute;
 		width: 100%;
 		max-width: 35rem;

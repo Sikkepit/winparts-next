@@ -37,20 +37,25 @@ export default function HeaderCart({ ref }: { ref: RefObject<HTMLDivElement | nu
 
 	return (
 		<div className="header-cart relative">
-			<div className="header-cart__body shadow-2xl" ref={ref}>
+			<div className="header-cart__body shadow-lg" ref={ref}>
 				<div className="header-cart__title">Winkelwagen</div>
 
 				{products.length > 0 ? (
-					<table>
-						<tbody>
-							{products.map((product) => (
-								<CartProduct
-									product={product}
-									key={product.product.id}
-								/>
-							))}
-						</tbody>
-					</table>
+					<>
+						<table>
+							<tbody>
+								{products.map((product) => (
+									<CartProduct
+										product={product}
+										key={product.product.id}
+									/>
+								))}
+							</tbody>
+						</table>
+						<div className="font-medium mt-4 text-right">
+							Totaal: {displayAsCurrency(totalAmount)}
+						</div>
+					</>
 				) : (
 					<span>Je winkelwagentje is leeg</span>
 				)}
