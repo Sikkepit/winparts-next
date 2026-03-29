@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import HeaderUsps from "./HeaderUsps";
 import HeaderSearch from "./HeaderSearch";
-import HeaderCategories from "./HeaderCategories";
 import HeaderCart from "./HeaderCart";
 import HeaderCartButton from "./HeaderCartButton";
 
@@ -12,7 +11,7 @@ import { useRef, useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import "./header.css";
 
-export default function Header() {
+export default function Header({ children }: { children: React.ReactNode }) {
 	const [showCartContents, setShowCardContents] = useState(false);
 	const headerCartRef = useRef<HTMLDivElement>(null);
 
@@ -39,7 +38,8 @@ export default function Header() {
 						<HeaderSearch />
 
 						<div className="flex gap-4">
-							<HeaderCategories />
+							{children}
+
 							<HeaderCartButton
 								onClick={() => {
 									setShowCardContents((oldValue) => !oldValue);
