@@ -1,8 +1,7 @@
 "use client";
 
 import { getCategoryDetails } from "@/data/categories";
-import { getFilterDto, getFilteredProducts } from "@/utils/categoryUtil";
-import { useState } from "react";
+import { getFilteredProducts } from "@/utils/categoryUtil";
 import { getProductsByCategory } from "@/data/products";
 
 import OverviewContainer from "./container/OverviewContainer";
@@ -15,25 +14,20 @@ export default function Overview({
 	categoryId?: number;
 	searchParams: { [key: string]: string | string[] | undefined };
 }) {
-	const category = getCategoryDetails(categoryId);
-	const products = getProductsByCategory(categoryId);
+	const getFilterObject = () => {
+		const params = new URLSearchParams(searchParams.toString());
+		let obj = {};
 
-	const [filterObject, setFilterObject] = useState<Record<string, string[]>>(getFilterDto(category?.filters));
+		params.forEach((key) => {
+			obj = { ...obj, [key]: params.getAll(key) };
+		});
 
-	const clearFilters = () => {
-		setFilterObject(getFilterDto(category?.filters));
+		return obj;
 	};
 
-	return (
-		<>
-			{JSON.stringify(searchParams)}
-			<OverviewContainer
-				category={category}
-				filterObject={filterObject}
-				products={getFilteredProducts(products, filterObject)}
-				clearFilters={clearFilters}
-				setFilterObject={setFilterObject}
-			/>
-		</>
-	);
+	const category = getCategoryDetails(categoryId);
+	const products = getProductsByCategory(categoryId);
+	const filterObject = getFilterObject();
+
+	return <OverviewContainer category={category} products={getFilteredProducts(products, filterObject)} />;
 }

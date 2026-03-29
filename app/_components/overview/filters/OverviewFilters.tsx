@@ -1,27 +1,25 @@
+"use client";
+
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { CategoryType, FilterType } from "@/types/types";
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
 import { Filter } from "./Filter";
 
 type OverviewFiltersProps = {
 	category: CategoryType;
-	filterObject: Record<string, string[]>;
-	setFilterObject: Dispatch<SetStateAction<Record<string, string[]>>>;
 };
 
-export default function OverviewFilters({ category, filterObject, setFilterObject }: OverviewFiltersProps) {
-	const getValue = (id: string) => {
-		if (filterObject[id as keyof typeof filterObject]) {
-			return filterObject[id as keyof typeof filterObject];
-		}
-
-		setFilterObject({ ...filterObject, [id]: [] });
-		return [];
-	};
+export default function OverviewFilters({ category }: OverviewFiltersProps) {
+	const router = useRouter();
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
 
 	const handleChange = (newValue: string[], filter: FilterType) => {
-		const newFilterObject = { ...filterObject, [filter.id]: newValue };
-		setFilterObject(newFilterObject);
+		const params = new URLSearchParams();
+		newValue.forEach((v) => (v ? params.append(filter.id, v) : ""));
+
+		// Update the URL without a full refresh
+		router.push(`${pathname}?${params.toString()}`, { scroll: false });
 	};
 
 	return (
@@ -39,7 +37,7 @@ export default function OverviewFilters({ category, filterObject, setFilterObjec
 					<Filter
 						key={filter.id}
 						filter={filter}
-						value={getValue(filter.id)}
+						value={searchParams.getAll(filter.id)}
 						onChange={handleChange}
 					/>
 				))}

@@ -1,21 +1,28 @@
-type SelectedFilterProps = {
-	filterObject: Record<string, string[]>;
-	clearFilters: () => void;
-};
+"use client";
 
-export default function SelectedFilters({ filterObject, clearFilters }: SelectedFilterProps) {
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+
+export default function SelectedFilters() {
+	const router = useRouter();
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
+
 	const getSelectedFilters = () => {
-		const filterArr: string[] = [];
-		Object.entries(filterObject).map(([, value]) =>
-			value.map((v) => {
-				filterArr.push(v);
-			}),
-		);
+		const params = new URLSearchParams(searchParams.toString());
+		const filters: string[] = [];
 
-		return filterArr;
+		params.forEach((value) => {
+			filters.push(value);
+		});
+
+		return filters;
 	};
 
 	const filters = getSelectedFilters();
+
+	const clearFilters = () => {
+		router.push(pathname, { scroll: false });
+	};
 
 	return (
 		<ul className="overview__active-filters">

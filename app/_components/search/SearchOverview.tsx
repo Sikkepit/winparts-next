@@ -1,9 +1,6 @@
-"use client";
-
 import { products } from "@/data/products";
 import { CategoryType, ProductType } from "@/types/types";
 import { getFilteredProducts, getSearchResults } from "@/utils/categoryUtil";
-import { useState } from "react";
 
 import OverviewContainer from "../overview/container/OverviewContainer";
 import "../overview/overview.css";
@@ -15,11 +12,14 @@ type SearchOverviewProps = {
 };
 
 export default function SearchOverview({ category, searchQuery, searchParams }: SearchOverviewProps) {
-	const [filterObject, setFilterObject] = useState<Record<string, string[]>>({
-		brand: [],
-	});
+	const getArray = (value: string | string[] | undefined) => {
+		if (!value) return [];
+		if (typeof value === "string") return [value];
+		return value;
+	};
 
 	const searchResults = getSearchResults(products, searchQuery);
+	const filterObject = { brand: getArray(searchParams.brand) };
 	const filteredProducts = getFilteredProducts(searchResults, filterObject);
 
 	const getUniqiueBrands = (products: ProductType[]) => {
@@ -43,22 +43,5 @@ export default function SearchOverview({ category, searchQuery, searchParams }: 
 		],
 	};
 
-	const clearFilters = () => {
-		setFilterObject({
-			brand: [],
-		});
-	};
-
-	return (
-		<>
-			{JSON.stringify(searchParams)}
-			<OverviewContainer
-				category={searchCategory}
-				filterObject={filterObject}
-				products={filteredProducts}
-				clearFilters={clearFilters}
-				setFilterObject={setFilterObject}
-			/>
-		</>
-	);
+	return <OverviewContainer category={searchCategory} products={filteredProducts} />;
 }
