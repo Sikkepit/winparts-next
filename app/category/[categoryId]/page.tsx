@@ -1,7 +1,13 @@
 import Overview from "@/app/_components/overview/Overview";
 
-export default async function CategoryOverviewPage({ params }: { params: Promise<{ categoryId: string }> }) {
-	const categoryId = (await params).categoryId;
+interface CategoryOverviewPageProps {
+	params: Promise<{ categoryId: string }>;
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
 
-	return <Overview categoryId={parseInt(categoryId)} />;
+export default async function CategoryOverviewPage({ params, searchParams }: CategoryOverviewPageProps) {
+	const categoryId = (await params).categoryId;
+	const searchPms = await searchParams;
+
+	return <Overview categoryId={parseInt(categoryId)} searchParams={searchPms} />;
 }

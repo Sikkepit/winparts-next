@@ -8,7 +8,13 @@ import { getProductsByCategory } from "@/data/products";
 import OverviewContainer from "./container/OverviewContainer";
 import "./overview.css";
 
-export default function Overview({ categoryId = 469 }: { categoryId?: number }) {
+export default function Overview({
+	categoryId = 469,
+	searchParams,
+}: {
+	categoryId?: number;
+	searchParams: { [key: string]: string | string[] | undefined };
+}) {
 	const category = getCategoryDetails(categoryId);
 	const products = getProductsByCategory(categoryId);
 
@@ -19,12 +25,15 @@ export default function Overview({ categoryId = 469 }: { categoryId?: number }) 
 	};
 
 	return (
-		<OverviewContainer
-			category={category}
-			filterObject={filterObject}
-			products={getFilteredProducts(products, filterObject)}
-			clearFilters={clearFilters}
-			setFilterObject={setFilterObject}
-		/>
+		<>
+			{JSON.stringify(searchParams)}
+			<OverviewContainer
+				category={category}
+				filterObject={filterObject}
+				products={getFilteredProducts(products, filterObject)}
+				clearFilters={clearFilters}
+				setFilterObject={setFilterObject}
+			/>
+		</>
 	);
 }
