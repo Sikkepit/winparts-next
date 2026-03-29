@@ -18,11 +18,11 @@ export default function SelectedFilters() {
 		return filters;
 	};
 
-	const filters = getSelectedFilters();
-
 	const clearFilters = () => {
 		router.push(pathname, { scroll: false });
 	};
+
+	const filters = getSelectedFilters();
 
 	return (
 		<ul className="overview__active-filters">

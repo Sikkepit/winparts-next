@@ -1,6 +1,7 @@
 import OverviewFilters from "../filters/OverviewFilters";
 import SelectedFilters from "../filters/SelectedFilters";
 import OverviewMain from "../main/OverviewMain";
+
 import { CategoryType, ProductType } from "@/types/types";
 
 type OverviewContainerProps = {

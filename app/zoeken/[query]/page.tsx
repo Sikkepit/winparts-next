@@ -1,10 +1,10 @@
 import SearchOverview from "@/app/_components/search/SearchOverview";
 import { searchCategory } from "@/data/categories";
 
-interface SearchOverviewPageProps {
+type SearchOverviewPageProps = {
 	params: Promise<{ query: string }>;
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
+};
 
 export default async function SearchOverviewPage({ params, searchParams }: SearchOverviewPageProps) {
 	const query = (await params).query;

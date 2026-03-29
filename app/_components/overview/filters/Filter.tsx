@@ -5,6 +5,7 @@ import { FilterType } from "@/types/types";
 type FilterProps = {
 	filter: FilterType;
 	value: string[];
+
 	onChange: (newValue: string[], filter: FilterType) => void;
 };
 

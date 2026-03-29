@@ -5,7 +5,7 @@ export function useClickOutside<T extends HTMLElement>(ref: RefObject<T | null>,
 		const listener = (event: MouseEvent | TouchEvent) => {
 			const target = event.target as Node;
 
-			// Applies to the remove button in the shoppingcart
+			// Applies to the remove button in the shopping cart
 			const itemGetsDeletedOnClick = !document.body.contains(target);
 
 			if (!ref.current || itemGetsDeletedOnClick || ref.current.contains(target)) {

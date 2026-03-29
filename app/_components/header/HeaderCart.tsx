@@ -2,17 +2,12 @@
 
 import { getProductById } from "@/data/products";
 import { useCartStore } from "@/store/cartStore";
-import { ProductType } from "@/types/types";
+import { CartProductType } from "@/types/types";
 import { displayAsCurrency } from "@/utils/dataUtils";
 import { RefObject } from "react";
 
 import Icon from "@/components/icon/Icon";
 import "./headercart.css";
-
-type CartProductType = {
-	product: ProductType;
-	quantity: number;
-};
 
 export default function HeaderCart({ ref }: { ref: RefObject<HTMLDivElement | null> }) {
 	const { cart } = useCartStore();

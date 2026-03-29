@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "./searchbar.css";
 import Icon from "../icon/Icon";
+import "./searchbar.css";
 
 type SearchBarProps = {
 	placeholder?: string;

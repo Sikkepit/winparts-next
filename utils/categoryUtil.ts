@@ -1,15 +1,22 @@
-import { FilterType, ProductType } from "@/types/types";
+import { ProductType } from "@/types/types";
 
 /**
- * Get empty filter object that takes in account configured category filters
+ * Get an object from the search params in the URL. Keys without values are deleted,
+ * Keys that have a string value or a string[] get a string[]
  */
-export const getFilterDto = (filters: FilterType[] | undefined): Record<string, string[]> => {
-	let returnObj = {};
-	if (!filters) return returnObj;
+export const getFilterObject = (searchParams: { [key: string]: string | string[] | undefined }) => {
+	return Object.entries(searchParams).reduce(
+		(acc, [key, value]) => {
+			if (!value) {
+				return acc;
+			}
 
-	filters.map((filter) => (returnObj = { ...returnObj, [filter.id]: [] }));
+			acc[key] = Array.isArray(value) ? value : [value];
 
-	return returnObj;
+			return acc;
+		},
+		{} as Record<string, string[]>,
+	);
 };
 
 /**
@@ -25,6 +32,9 @@ export const getPath = (obj: unknown, path: string): unknown => {
 	return nestedKeys.reduce((acc, part) => (acc as Record<string, unknown>)?.[part], obj);
 };
 
+/**
+ * FIlter products by the user's chosen filters
+ */
 export const getFilteredProducts = (products: ProductType[], filterObj: Record<string, string[]>) => {
 	const filteredProducts = products.filter((product) => {
 		return Object.entries(filterObj).every(([key, value]) => {

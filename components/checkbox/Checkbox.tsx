@@ -1,12 +1,13 @@
 import "./checkbox.css";
 
 type CheckboxProps = {
-	onChange: (checked: boolean) => void;
 	label: string;
 	checked: boolean;
+
+	onChange: (checked: boolean) => void;
 };
 
-export default function Checkbox({ onChange, label, checked }: CheckboxProps) {
+export default function Checkbox({ label, checked, onChange }: CheckboxProps) {
 	return (
 		<label className="checkbox">
 			<input

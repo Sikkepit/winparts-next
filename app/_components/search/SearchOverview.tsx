@@ -1,6 +1,6 @@
 import { products } from "@/data/products";
 import { CategoryType, ProductType } from "@/types/types";
-import { getFilteredProducts, getSearchResults } from "@/utils/categoryUtil";
+import { getFilteredProducts, getFilterObject, getSearchResults } from "@/utils/categoryUtil";
 
 import OverviewContainer from "../overview/container/OverviewContainer";
 import "../overview/overview.css";
@@ -12,14 +12,8 @@ type SearchOverviewProps = {
 };
 
 export default function SearchOverview({ category, searchQuery, searchParams }: SearchOverviewProps) {
-	const getArray = (value: string | string[] | undefined) => {
-		if (!value) return [];
-		if (typeof value === "string") return [value];
-		return value;
-	};
-
 	const searchResults = getSearchResults(products, searchQuery);
-	const filterObject = { brand: getArray(searchParams.brand) };
+	const filterObject = getFilterObject(searchParams);
 	const filteredProducts = getFilteredProducts(searchResults, filterObject);
 
 	const getUniqiueBrands = (products: ProductType[]) => {

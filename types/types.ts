@@ -31,3 +31,8 @@ export type CartItemType = {
 	id: number;
 	quantity: number;
 };
+
+export type CartProductType = {
+	product: ProductType;
+	quantity: number;
+};

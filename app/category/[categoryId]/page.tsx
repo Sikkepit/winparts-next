@@ -1,9 +1,9 @@
 import Overview from "@/app/_components/overview/Overview";
 
-interface CategoryOverviewPageProps {
+type CategoryOverviewPageProps = {
 	params: Promise<{ categoryId: string }>;
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
+};
 
 export default async function CategoryOverviewPage({ params, searchParams }: CategoryOverviewPageProps) {
 	const categoryId = (await params).categoryId;

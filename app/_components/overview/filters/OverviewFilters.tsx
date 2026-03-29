@@ -2,8 +2,9 @@
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { CategoryType, FilterType } from "@/types/types";
-import Image from "next/image";
 import { Filter } from "./Filter";
+
+import Image from "next/image";
 
 type OverviewFiltersProps = {
 	category: CategoryType;
