@@ -8,9 +8,13 @@ import { useState } from "react";
 import OverviewContainer from "../overview/container/OverviewContainer";
 import "../overview/overview.css";
 
-type SearchOverviewProps = { category: CategoryType; searchQuery: string };
+type SearchOverviewProps = {
+	category: CategoryType;
+	searchQuery: string;
+	searchParams: { [key: string]: string | string[] | undefined };
+};
 
-export default function SearchOverview({ category, searchQuery }: SearchOverviewProps) {
+export default function SearchOverview({ category, searchQuery, searchParams }: SearchOverviewProps) {
 	const [filterObject, setFilterObject] = useState<Record<string, string[]>>({
 		brand: [],
 	});
@@ -46,12 +50,15 @@ export default function SearchOverview({ category, searchQuery }: SearchOverview
 	};
 
 	return (
-		<OverviewContainer
-			category={searchCategory}
-			filterObject={filterObject}
-			products={filteredProducts}
-			clearFilters={clearFilters}
-			setFilterObject={setFilterObject}
-		/>
+		<>
+			{JSON.stringify(searchParams)}
+			<OverviewContainer
+				category={searchCategory}
+				filterObject={filterObject}
+				products={filteredProducts}
+				clearFilters={clearFilters}
+				setFilterObject={setFilterObject}
+			/>
+		</>
 	);
 }
