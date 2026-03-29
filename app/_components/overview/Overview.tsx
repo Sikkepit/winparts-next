@@ -1,5 +1,3 @@
-"use client";
-
 import { getCategoryDetails } from "@/data/categories";
 import { getFilteredProducts } from "@/utils/categoryUtil";
 import { getProductsByCategory } from "@/data/products";
@@ -15,14 +13,18 @@ export default function Overview({
 	searchParams: { [key: string]: string | string[] | undefined };
 }) {
 	const getFilterObject = () => {
-		const params = new URLSearchParams(searchParams.toString());
-		let obj = {};
+		return Object.entries(searchParams).reduce(
+			(acc, [key, value]) => {
+				if (!value) {
+					return acc;
+				}
 
-		params.forEach((key) => {
-			obj = { ...obj, [key]: params.getAll(key) };
-		});
+				acc[key] = Array.isArray(value) ? value : [value];
 
-		return obj;
+				return acc;
+			},
+			{} as Record<string, string[]>,
+		);
 	};
 
 	const category = getCategoryDetails(categoryId);

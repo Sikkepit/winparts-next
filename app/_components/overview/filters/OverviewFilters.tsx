@@ -15,7 +15,8 @@ export default function OverviewFilters({ category }: OverviewFiltersProps) {
 	const searchParams = useSearchParams();
 
 	const handleChange = (newValue: string[], filter: FilterType) => {
-		const params = new URLSearchParams();
+		const params = new URLSearchParams(searchParams);
+		params.delete(filter.id);
 		newValue.forEach((v) => (v ? params.append(filter.id, v) : ""));
 
 		// Update the URL without a full refresh
