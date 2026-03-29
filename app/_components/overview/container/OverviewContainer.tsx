@@ -1,5 +1,4 @@
 import OverviewFilters from "../filters/OverviewFilters";
-import SelectedFilters from "../filters/SelectedFilters";
 import OverviewMain from "../main/OverviewMain";
 
 import { CategoryType, ProductType } from "@/types/types";
@@ -26,9 +25,7 @@ export default function OverviewContainer({ category, products }: OverviewContai
 			</div>
 
 			<div className="col-span-9">
-				<OverviewMain category={category} products={products}>
-					<SelectedFilters />
-				</OverviewMain>
+				<OverviewMain category={category} products={products} />
 			</div>
 		</section>
 	);
