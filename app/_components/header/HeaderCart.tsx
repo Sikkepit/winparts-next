@@ -4,10 +4,10 @@ import { getProductById } from "@/data/products";
 import { useCartStore } from "@/store/cartStore";
 import { ProductType } from "@/types/types";
 import { displayAsCurrency } from "@/utils/dataUtils";
-
-import "./headercart.css";
-import Icon from "@/components/icon/Icon";
 import { RefObject } from "react";
+
+import Icon from "@/components/icon/Icon";
+import "./headercart.css";
 
 type CartProductType = {
 	product: ProductType;
@@ -52,6 +52,7 @@ export default function HeaderCart({ ref }: { ref: RefObject<HTMLDivElement | nu
 								))}
 							</tbody>
 						</table>
+
 						<div className="font-medium mt-4 text-right">
 							Totaal: {displayAsCurrency(totalAmount)}
 						</div>
@@ -72,10 +73,13 @@ function CartProduct({ product }: { product: CartProductType }) {
 	return (
 		<tr>
 			<td>{quantity}</td>
+
 			<td className="truncated" title={item.title}>
 				{item.title}
 			</td>
+
 			<td>{displayAsCurrency(quantity * item.retailPrice)}</td>
+
 			<td>
 				<button
 					type="button"

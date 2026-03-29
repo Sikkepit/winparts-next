@@ -6,8 +6,8 @@ import HeaderUsps from "./HeaderUsps";
 import HeaderSearch from "./HeaderSearch";
 import HeaderCategories from "./HeaderCategories";
 import HeaderCart from "./HeaderCart";
-
 import HeaderCartButton from "./HeaderCartButton";
+
 import { useRef, useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import "./header.css";
