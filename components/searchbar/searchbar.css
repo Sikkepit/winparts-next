@@ -5,6 +5,7 @@
 
 	display: flex;
 	align-items: center;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
 	&:has(.searchbar__input:focus-visible) {
 		outline: 2px solid var(--color-focus);

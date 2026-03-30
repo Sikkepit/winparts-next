@@ -35,7 +35,7 @@ export default function HeaderCart({ ref, hideCart }: HeaderCartProps) {
 
 	return (
 		<div className="header-cart relative">
-			<div className="header-cart__body shadow-lg" ref={ref}>
+			<div className="header-cart__body" ref={ref}>
 				<div className="header-cart__title">
 					Winkelwagen
 					<button type="button" title="Verberg winkelwagen" onClick={() => hideCart()}>
