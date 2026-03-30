@@ -29,6 +29,11 @@
 			border-block-end: 1px solid var(--color-gallery-200);
 			padding: 1.5rem 0.5rem;
 
+			.header-cart__price {
+				display: flex;
+				flex-direction: column;
+			}
+
 			.header-cart__price,
 			.header-cart__quantity {
 				color: var(--color-blue-gem);
