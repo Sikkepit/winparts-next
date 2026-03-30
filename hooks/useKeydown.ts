@@ -6,8 +6,8 @@ export function useKeydown(key: string, callbackFn: () => void): void {
 			if (e.key === key) callbackFn();
 		};
 
-		window.addEventListener("keydown", handler);
+		document.addEventListener("keydown", handler);
 
-		return () => window.removeEventListener("keydown", handler);
+		return () => document.removeEventListener("keydown", handler);
 	}, [key, callbackFn]);
 }
