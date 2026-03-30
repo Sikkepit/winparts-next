@@ -9,13 +9,19 @@ import HeaderCartButton from "./cart/HeaderCartButton";
 
 import { useRef, useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import { useKeydown } from "@/hooks/useKeydown";
 import "./header.css";
 
 export default function Header({ children }: { children: React.ReactNode }) {
 	const [showCartContents, setShowCardContents] = useState(false);
 	const headerCartRef = useRef<HTMLDivElement>(null);
 
-	useClickOutside(headerCartRef, () => setShowCardContents(false));
+	const hideCart = () => {
+		if (showCartContents) setShowCardContents(false);
+	};
+
+	useClickOutside(headerCartRef, () => hideCart());
+	useKeydown("Escape", () => hideCart());
 
 	return (
 		<header className="header">
@@ -48,12 +54,7 @@ export default function Header({ children }: { children: React.ReactNode }) {
 						</div>
 					</div>
 
-					{showCartContents && (
-						<HeaderCart
-							ref={headerCartRef}
-							hideCart={() => setShowCardContents(false)}
-						/>
-					)}
+					{showCartContents && <HeaderCart ref={headerCartRef} hideCart={hideCart} />}
 				</div>
 			</section>
 		</header>
