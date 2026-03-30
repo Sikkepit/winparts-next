@@ -6,14 +6,17 @@
 	--color-gallery-100: #eeeeee;
 	--color-gallery-200: #ececec;
 
+	--color-malachite-600: #00c045;
+	--color-malachite-700: #009637;
+	--color-malachite-800: #06752f;
+
 	--color-alabaster: #f9f9f9;
-	--color-cranberry: #ed4770;
 
 	--color-orange: #ff9933;
 	--color-poppy: #ff9900;
 	--color-flush: #ff8000;
 
-	--color-succes: #008000;
+	--color-succes: var(--color-malachite-700);
 	--color-star-dust: #a3a3a3;
 
 	--color-text: var(--color-black);
