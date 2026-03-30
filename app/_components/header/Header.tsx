@@ -48,7 +48,12 @@ export default function Header({ children }: { children: React.ReactNode }) {
 						</div>
 					</div>
 
-					{showCartContents && <HeaderCart ref={headerCartRef} />}
+					{showCartContents && (
+						<HeaderCart
+							ref={headerCartRef}
+							hideCart={() => setShowCardContents(false)}
+						/>
+					)}
 				</div>
 			</section>
 		</header>

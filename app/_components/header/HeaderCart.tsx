@@ -6,10 +6,13 @@ import { CartProductType } from "@/types/types";
 import { displayAsCurrency } from "@/utils/dataUtils";
 import { RefObject } from "react";
 
+import Image from "next/image";
 import Icon from "@/components/icon/Icon";
 import "./headercart.css";
 
-export default function HeaderCart({ ref }: { ref: RefObject<HTMLDivElement | null> }) {
+type HeaderCartProps = { ref: RefObject<HTMLDivElement | null>; hideCart: () => void };
+
+export default function HeaderCart({ ref, hideCart }: HeaderCartProps) {
 	const { cart } = useCartStore();
 
 	const getItems = () => {
@@ -33,27 +36,30 @@ export default function HeaderCart({ ref }: { ref: RefObject<HTMLDivElement | nu
 	return (
 		<div className="header-cart relative">
 			<div className="header-cart__body shadow-lg" ref={ref}>
-				<div className="header-cart__title">Winkelwagen</div>
+				<div className="header-cart__title">
+					Winkelwagen
+					<button type="button" title="Verberg winkelwagen" onClick={() => hideCart()}>
+						<Icon variant="xmark" className="size-6" />
+					</button>
+				</div>
 
 				{products.length > 0 ? (
 					<>
-						<table>
-							<tbody>
-								{products.map((product) => (
-									<CartProduct
-										product={product}
-										key={product.product.id}
-									/>
-								))}
-							</tbody>
-						</table>
+						<div>
+							{products.map((product) => (
+								<CartProduct
+									product={product}
+									key={product.product.id}
+								/>
+							))}
+						</div>
 
 						<div className="font-medium mt-4 text-right">
 							Totaal: {displayAsCurrency(totalAmount)}
 						</div>
 					</>
 				) : (
-					<span>Je winkelwagentje is leeg</span>
+					<div className="mt-5 mb-2">Je winkelwagen is nog leeg...</div>
 				)}
 			</div>
 		</div>
@@ -66,25 +72,37 @@ function CartProduct({ product }: { product: CartProductType }) {
 	const { product: item, quantity } = product;
 
 	return (
-		<tr>
-			<td>{quantity}</td>
+		<div className="header-cart__product">
+			<div className="shrink-0">
+				<Image
+					src={`/product_${item.category}.jpg`}
+					height={62}
+					width={88}
+					alt={item.title}
+					loading="lazy"
+				/>
+			</div>
 
-			<td className="truncated" title={item.title}>
-				{item.title}
-			</td>
+			<div className="header-cart__product-title">
+				<span>{item.title}</span>
 
-			<td>{displayAsCurrency(quantity * item.retailPrice)}</td>
+				<span className="header-cart__quantity">{quantity} stuk(s)</span>
+			</div>
 
-			<td>
+			<div className="text-right">
+				<span className="header-cart__price">
+					{displayAsCurrency(item.retailPrice * quantity)}
+				</span>
+
 				<button
 					type="button"
-					className="header-cart__delete"
+					className="header-cart__delete-btn"
 					title="Verwijder uit mandje"
 					onClick={() => removeFromCart(item.id)}
 				>
-					<Icon variant="trash" className="icon" />
+					Verwijder
 				</button>
-			</td>
-		</tr>
+			</div>
+		</div>
 	);
 }
