@@ -80,6 +80,7 @@ function CartProduct({ product }: { product: CartProductType }) {
 					width={88}
 					alt={item.title}
 					loading="lazy"
+					style={{ width: "88px", height: "62px" }}
 				/>
 			</div>
 
