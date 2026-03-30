@@ -45,7 +45,7 @@ export default function HeaderCart({ ref, hideCart }: HeaderCartProps) {
 
 				{products.length > 0 ? (
 					<>
-						<div>
+						<div className="header-cart__contents">
 							{products.map((product) => (
 								<CartProduct
 									product={product}
@@ -54,12 +54,14 @@ export default function HeaderCart({ ref, hideCart }: HeaderCartProps) {
 							))}
 						</div>
 
-						<div className="font-medium mt-4 text-right">
+						<div className="header-cart__footer">
 							Totaal: {displayAsCurrency(totalAmount)}
 						</div>
 					</>
 				) : (
-					<div className="mt-5 mb-2">Je winkelwagen is nog leeg...</div>
+					<div className="header-cart__contents pt-1 pb-6">
+						Je winkelwagen is nog leeg...
+					</div>
 				)}
 			</div>
 		</div>

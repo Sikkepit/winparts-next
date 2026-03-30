@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import HeaderUsps from "./HeaderUsps";
 import HeaderSearch from "./HeaderSearch";
-import HeaderCart from "./HeaderCart";
-import HeaderCartButton from "./HeaderCartButton";
+import HeaderCart from "./cart/HeaderCart";
+import HeaderCartButton from "./cart/HeaderCartButton";
 
 import { useRef, useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";

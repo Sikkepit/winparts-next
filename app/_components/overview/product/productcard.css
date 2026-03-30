@@ -36,7 +36,7 @@
 		font-size: 0.75rem;
 
 		.product-card__winprijs {
-			color: var(--color-malachite-700);
+			color: var(--color-malachite-600);
 
 			text {
 				fill: var(--color-white);
@@ -49,7 +49,7 @@
 		}
 
 		.product-card__verkoopprijs {
-			color: var(--color-malachite-700);
+			color: var(--color-malachite-600);
 			font-size: 1rem;
 			font-weight: bold;
 		}
