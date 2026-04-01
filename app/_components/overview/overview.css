@@ -33,9 +33,9 @@
 			}
 
 			.overview__filter {
-				background-color: var(--color-orange);
+				background-color: var(--color-persian);
 				color: var(--color-white);
-				border-color: var(--color-orange);
+				border-color: var(--color-persian);
 			}
 		}
 	}
