@@ -22,7 +22,7 @@ export const getFilterObject = (searchParams: { [key: string]: string | string[]
 /**
  * Retrieves a nested value from an object using a string path
  */
-export const getPath = (obj: unknown, path: string): unknown => {
+export const getValueForFilterKey = (obj: unknown, path: string): unknown => {
 	const nestedKeys = path.split("/");
 
 	// Start: acc = product
@@ -33,16 +33,20 @@ export const getPath = (obj: unknown, path: string): unknown => {
 };
 
 /**
- * FIlter products by the user's chosen filters
+ * Filter products by the user's chosen filters
  */
 export const getFilteredProducts = (products: ProductType[], filterObj: Record<string, string[]>) => {
 	const filteredProducts = products.filter((product) => {
-		return Object.entries(filterObj).every(([key, value]) => {
+		// The product should have at least one option of EVERY defined filter
+		// e.g. should have one of the brands that are selected, one of the colors, etc.
+		return Object.entries(filterObj).every(([filterKey, arrayOfSelectedOptions]) => {
 			// Skip if the filter option has no checkboxes checked
-			if (value.length === 0) return true;
+			if (arrayOfSelectedOptions.length === 0) return true;
 
-			const target = getPath(product, key);
-			return value.includes(target as string);
+			// Finds the value for the filterkey e.g brand or something
+			// nested like details/width
+			const valueForFilterKey = getValueForFilterKey(product, filterKey);
+			return arrayOfSelectedOptions.includes(valueForFilterKey as string);
 		});
 	});
 
