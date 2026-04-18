@@ -1,0 +1,206 @@
+"use client";
+
+import { useState, Dispatch, SetStateAction, useRef, createContext, useContext } from "react";
+import { useClickOutside } from "@/hooks/useClickOutside";
+import { daysOfTheWeek, formatDate, getDayOfTheWeek, getNumberOfDaysInMonth, months } from "./utils";
+import { useKeydown } from "@/hooks/useKeydown";
+
+import "./date-picker.css";
+
+type DatePickerContextValue = {
+	date: Date | null;
+	onChange: (date: Date | null) => void;
+
+	showCalendar: boolean;
+	setShowCalendar: Dispatch<SetStateAction<boolean>>;
+};
+
+const DatePickerContext = createContext<DatePickerContextValue | undefined>(undefined);
+
+const useDatePicker = (): DatePickerContextValue => {
+	const context = useContext(DatePickerContext);
+
+	if (!context) throw new Error("useDatePicker must be used within a DatePickerProvider");
+
+	return context;
+};
+
+export default function DatePicker({ date, onChange }: { date: Date | null; onChange: (date: Date | null) => void }) {
+	const [showCalendar, setShowCalendar] = useState(true);
+	const datePickerRef = useRef<HTMLDivElement>(null);
+
+	useClickOutside(datePickerRef, () => setShowCalendar(false));
+
+	const providerValue = {
+		date,
+		onChange,
+
+		showCalendar,
+		setShowCalendar,
+	};
+
+	return (
+		<DatePickerContext value={providerValue}>
+			<div className="date-picker" ref={datePickerRef}>
+				<CalendarButton />
+				{showCalendar && <Calendar date={date ?? new Date()} />}
+			</div>
+		</DatePickerContext>
+	);
+}
+
+function CalendarButton() {
+	const { setShowCalendar, showCalendar, date } = useDatePicker();
+
+	return (
+		<button
+			className="date-picker__input-button"
+			onClick={() => {
+				setShowCalendar(!showCalendar);
+			}}
+		>
+			{formatDate(date) || <span className="date-picker__placeholder">dd-mm-jjjj</span>}
+
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className="date-picker__icon">
+				<path d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM480 496C488.8 496 496 488.8 496 480L496 416L408 416L408 496L480 496zM496 368L496 288L408 288L408 368L496 368zM360 368L360 288L280 288L280 368L360 368zM232 368L232 288L144 288L144 368L232 368zM144 416L144 480C144 488.8 151.2 496 160 496L232 496L232 416L144 416zM280 416L280 496L360 496L360 416L280 416zM216 176L160 176C151.2 176 144 183.2 144 192L144 240L496 240L496 192C496 183.2 488.8 176 480 176L216 176z" />
+			</svg>
+		</button>
+	);
+}
+
+type HeaderProps = {
+	month: number;
+	year: number;
+
+	setMonth: (month: number) => void;
+	setYear: (year: number) => void;
+};
+
+function Header({ month, year, setMonth, setYear }: HeaderProps) {
+	const changeMonth = (newValue: number) => {
+		if (newValue < 0) {
+			setMonth(11);
+			setYear(year - 1);
+			return;
+		}
+
+		if (newValue > 11) {
+			setMonth(0);
+			setYear(year + 1);
+			return;
+		}
+
+		setMonth(newValue);
+	};
+
+	return (
+		<div className="date-picker__header">
+			<button onClick={() => changeMonth(month - 1)}>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 640 640"
+					className="date-picker__icon"
+				>
+					<path d="M169.4 297.4C156.9 309.9 156.9 330.2 169.4 342.7L361.4 534.7C373.9 547.2 394.2 547.2 406.7 534.7C419.2 522.2 419.2 501.9 406.7 489.4L237.3 320L406.6 150.6C419.1 138.1 419.1 117.8 406.6 105.3C394.1 92.8 373.8 92.8 361.3 105.3L169.3 297.3z" />
+				</svg>
+			</button>
+
+			<span className="capitalize font-bold">
+				{months[month]} {year}
+			</span>
+
+			<button onClick={() => changeMonth(month + 1)}>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 640 640"
+					className="date-picker__icon"
+				>
+					<path d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z" />
+				</svg>
+			</button>
+		</div>
+	);
+}
+
+type FooterProps = { setMonth: (month: number) => void; setYear: (year: number) => void };
+
+function Footer({ setMonth, setYear }: FooterProps) {
+	const { onChange, setShowCalendar, date } = useDatePicker();
+
+	const selectToday = () => {
+		onChange(new Date());
+		setMonth(new Date().getMonth());
+		setYear(new Date().getFullYear());
+	};
+
+	useKeydown("t", () => selectToday());
+
+	return (
+		<div className="date-picker__footer">
+			{!!date && (
+				<button
+					type="button"
+					className="date-picker__delete"
+					onClick={() => {
+						onChange(null);
+						setShowCalendar(false);
+					}}
+				>
+					Wissen
+				</button>
+			)}
+
+			<button type="button" onClick={selectToday} className="date-picker__today">
+				Vandaag
+			</button>
+		</div>
+	);
+}
+
+function Calendar({ date }: { date: Date }) {
+	const [year, setYear] = useState(date.getFullYear());
+	const [month, setMonth] = useState(date.getMonth());
+
+	const { onChange, setShowCalendar } = useDatePicker();
+
+	const range = new Date(Date.UTC(year, month, 1));
+	const emptyCols = Array.from({ length: getDayOfTheWeek(range) - 1 });
+	const days = Array.from({ length: getNumberOfDaysInMonth(range) });
+
+	const getIsMarkedDay = (day: number) => {
+		return year === date.getFullYear() && month === date.getMonth() && day + 1 === date.getDate();
+	};
+
+	return (
+		<div className="date-picker__calendar">
+			<Header year={year} setYear={setYear} month={month} setMonth={setMonth} />
+
+			<div className="date-picker__container">
+				{daysOfTheWeek.map((day) => (
+					<div className="date-picker__day-name" key={day}>
+						{day}
+					</div>
+				))}
+
+				{emptyCols.map((__, index) => (
+					<div key={index}></div>
+				))}
+
+				{days.map((__, index) => (
+					<button
+						key={index}
+						className={`date-picker__day ${getIsMarkedDay(index) ? "marked" : ""}`}
+						onClick={() => {
+							onChange(new Date(Date.UTC(year, month, index + 1)));
+							setShowCalendar(false);
+						}}
+					>
+						{index + 1}
+					</button>
+				))}
+			</div>
+
+			<Footer setMonth={setMonth} setYear={setYear} />
+		</div>
+	);
+}
