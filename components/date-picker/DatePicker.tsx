@@ -82,7 +82,7 @@ function CalendarInput() {
 		const month = Number(currentValue.substring(3, 5)) - 1;
 		const year = Number(currentValue.substring(6, 10));
 
-		const isValid = getIsValid(day, month, year);
+		const isValid = getIsValid(day, month + 1, year);
 
 		if (!isValid) {
 			setCurrentValue(formatDate(date));

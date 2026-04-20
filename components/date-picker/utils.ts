@@ -14,6 +14,10 @@ export const months = [
 	"december",
 ];
 
+/**
+ * Returns number of days in a certain month for a certain (leap)year.
+ * Valid month input is a number ranging from 1 (January) till 12 (December)
+ */
 export const getNumberOfDaysInMonth = (month: number, year: number) => {
 	const months30 = [4, 6, 9, 11];
 	const leapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
@@ -42,11 +46,18 @@ export const formatDate = (date: Date | null): string => {
 	return `${day}-${month}-${year}`;
 };
 
-export const getIsValid = (day: number, month: number, year: number) => {
-	if (month > 11) return false;
+/**
+ * Validates manual date input. Checks for valid month ranging from 1 (January) till 12 (December).
+ * Valid years are between 1900 and 2100. Takes in account the available number of days withing a
+ * month in a certain (leap)year.
+ *
+ * @returns true or false
+ */
+export const getIsValid = (day: number, month: number, year: number): boolean => {
+	if (month > 12) return false;
 	if (year < 1900 || year > 2100) return false;
 
-	const maxDays = getNumberOfDaysInMonth(month + 1, year);
+	const maxDays = getNumberOfDaysInMonth(month, year);
 	if (day > maxDays) return false;
 
 	return true;
