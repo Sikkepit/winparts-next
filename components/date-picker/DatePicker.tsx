@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, Dispatch, SetStateAction, useRef, createContext, useContext } from "react";
+import { createPortal } from "react-dom";
+import { useKeydown } from "@/hooks/useKeydown";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import {
 	daysOfTheWeek,
@@ -11,10 +13,8 @@ import {
 	getNumberOfDaysInMonth,
 	months,
 } from "./utils";
-import { useKeydown } from "@/hooks/useKeydown";
 
 import "./date-picker.css";
-import { createPortal } from "react-dom";
 
 type CoordinatesType = {
 	left: number;
