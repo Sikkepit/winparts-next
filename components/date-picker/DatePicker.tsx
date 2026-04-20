@@ -105,31 +105,24 @@ function CalendarInput() {
 
 	const ref = useRef<HTMLInputElement>(null);
 
-	const handleBlur = () => {
-		const day = Number(currentValue.substring(0, 2));
-		const month = Number(currentValue.substring(3, 5)) - 1;
-		const year = Number(currentValue.substring(6, 10));
-
-		const isValid = getIsValid(day, month + 1, year);
-
-		if (!isValid || currentValue.length !== 10) {
-			setCurrentValue(formatDate(date));
-			return;
-		}
-
-		const selectedDate = new Date(Date.UTC(year, month, day));
-
-		if (!isNaN(selectedDate.getTime())) {
-			onChange(selectedDate);
-			setMonth(month);
-			setYear(year);
-		} else {
-			setCurrentValue(formatDate(date));
-		}
-	};
-
 	const handleChange = (inputValue: string) => {
 		setCurrentValue(getFormattedOutput(inputValue));
+
+		if (inputValue.length !== 10) return;
+
+		const day = Number(inputValue.substring(0, 2));
+		const month = Number(inputValue.substring(3, 5)) - 1;
+		const year = Number(inputValue.substring(6, 10));
+
+		const isValid = getIsValid(day, month + 1, year);
+		if (!isValid) return;
+
+		const selectedDate = new Date(Date.UTC(year, month, day));
+		if (isNaN(selectedDate.getTime())) return;
+
+		onChange(selectedDate);
+		setMonth(month);
+		setYear(year);
 	};
 
 	const updateCoordinates = () => {
@@ -163,7 +156,7 @@ function CalendarInput() {
 				type="text"
 				value={currentValue}
 				onChange={(e) => handleChange(e.target.value)}
-				onBlur={handleBlur}
+				onBlur={() => setCurrentValue(formatDate(date))}
 				placeholder="dd-mm-jjjj"
 			/>
 
