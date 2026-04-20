@@ -13,6 +13,15 @@ type DatePickerContextValue = {
 
 	showCalendar: boolean;
 	setShowCalendar: Dispatch<SetStateAction<boolean>>;
+
+	month: number;
+	setMonth: Dispatch<SetStateAction<number>>;
+
+	year: number;
+	setYear: Dispatch<SetStateAction<number>>;
+
+	currentValue: string;
+	setCurrentValue: Dispatch<SetStateAction<string>>;
 };
 
 const DatePickerContext = createContext<DatePickerContextValue | undefined>(undefined);
@@ -27,6 +36,10 @@ const useDatePicker = (): DatePickerContextValue => {
 
 export default function DatePicker({ date, onChange }: { date: Date | null; onChange: (date: Date | null) => void }) {
 	const [showCalendar, setShowCalendar] = useState(true);
+	const [currentValue, setCurrentValue] = useState(formatDate(date));
+	const [year, setYear] = useState(date?.getFullYear() ?? 0);
+	const [month, setMonth] = useState(date?.getMonth() ?? 0);
+
 	const datePickerRef = useRef<HTMLDivElement>(null);
 
 	useClickOutside(datePickerRef, () => setShowCalendar(false));
@@ -37,46 +50,92 @@ export default function DatePicker({ date, onChange }: { date: Date | null; onCh
 
 		showCalendar,
 		setShowCalendar,
+
+		year,
+		setYear,
+
+		month,
+		setMonth,
+
+		currentValue,
+		setCurrentValue,
 	};
 
 	return (
 		<DatePickerContext value={providerValue}>
 			<div className="date-picker" ref={datePickerRef}>
-				<CalendarButton />
+				<CalendarInput />
 				{showCalendar && <Calendar date={date ?? new Date()} />}
 			</div>
 		</DatePickerContext>
 	);
 }
 
-function CalendarButton() {
-	const { setShowCalendar, showCalendar, date } = useDatePicker();
+function CalendarInput() {
+	const { setShowCalendar, showCalendar, date, onChange, setMonth, setYear, currentValue, setCurrentValue } =
+		useDatePicker();
 
+	const handleBlur = () => {
+		if (currentValue.length !== 10) {
+			setCurrentValue(formatDate(date));
+			return;
+		}
+
+		const day = Number(currentValue.substring(0, 2));
+		const month = Number(currentValue.substring(3, 5)) - 1;
+		const year = Number(currentValue.substring(6, 10));
+
+		const selectedDate = new Date(Date.UTC(year, month, day));
+
+		if (!isNaN(selectedDate.getTime())) {
+			onChange(selectedDate);
+			setMonth(month);
+			setYear(year);
+		} else {
+			setCurrentValue(formatDate(date));
+		}
+	};
+
+	const handleChange = (inputValue: string) => {
+		const cleaned = inputValue.replace(/\D/g, "");
+		const truncated = cleaned.slice(0, 8);
+
+		const day = truncated.substring(0, 2);
+		const month = truncated.substring(2, 4);
+		const year = truncated.substring(4, 8);
+
+		let output = day;
+
+		if (month) {
+			output += `-${month}`;
+		}
+
+		if (year) {
+			output += `-${year}`;
+		}
+
+		setCurrentValue(output);
+	};
 	return (
-		<button
-			className="date-picker__input-button"
-			onClick={() => {
-				setShowCalendar(!showCalendar);
-			}}
-		>
-			{formatDate(date) || <span className="date-picker__placeholder">dd-mm-jjjj</span>}
+		<div className="date-picker__input-wrapper" onClick={() => setShowCalendar(!showCalendar)}>
+			<input
+				type="text"
+				value={currentValue}
+				onChange={(e) => handleChange(e.target.value)}
+				onBlur={handleBlur}
+				placeholder="dd-mm-jjjj"
+			/>
 
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className="date-picker__icon">
 				<path d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM480 496C488.8 496 496 488.8 496 480L496 416L408 416L408 496L480 496zM496 368L496 288L408 288L408 368L496 368zM360 368L360 288L280 288L280 368L360 368zM232 368L232 288L144 288L144 368L232 368zM144 416L144 480C144 488.8 151.2 496 160 496L232 496L232 416L144 416zM280 416L280 496L360 496L360 416L280 416zM216 176L160 176C151.2 176 144 183.2 144 192L144 240L496 240L496 192C496 183.2 488.8 176 480 176L216 176z" />
 			</svg>
-		</button>
+		</div>
 	);
 }
 
-type HeaderProps = {
-	month: number;
-	year: number;
+function Header() {
+	const { year, month, setMonth, setYear } = useDatePicker();
 
-	setMonth: (month: number) => void;
-	setYear: (year: number) => void;
-};
-
-function Header({ month, year, setMonth, setYear }: HeaderProps) {
 	const changeMonth = (newValue: number) => {
 		if (newValue < 0) {
 			setMonth(11);
@@ -122,15 +181,14 @@ function Header({ month, year, setMonth, setYear }: HeaderProps) {
 	);
 }
 
-type FooterProps = { setMonth: (month: number) => void; setYear: (year: number) => void };
-
-function Footer({ setMonth, setYear }: FooterProps) {
-	const { onChange, setShowCalendar, date } = useDatePicker();
+function Footer() {
+	const { onChange, setShowCalendar, date, setMonth, setYear, setCurrentValue } = useDatePicker();
 
 	const selectToday = () => {
 		onChange(new Date());
 		setMonth(new Date().getMonth());
 		setYear(new Date().getFullYear());
+		setCurrentValue(formatDate(new Date()));
 	};
 
 	useKeydown("t", () => selectToday());
@@ -144,6 +202,7 @@ function Footer({ setMonth, setYear }: FooterProps) {
 					onClick={() => {
 						onChange(null);
 						setShowCalendar(false);
+						setCurrentValue("");
 					}}
 				>
 					Wissen
@@ -158,10 +217,7 @@ function Footer({ setMonth, setYear }: FooterProps) {
 }
 
 function Calendar({ date }: { date: Date }) {
-	const [year, setYear] = useState(date.getFullYear());
-	const [month, setMonth] = useState(date.getMonth());
-
-	const { onChange, setShowCalendar } = useDatePicker();
+	const { onChange, setShowCalendar, year, month, setCurrentValue } = useDatePicker();
 
 	const range = new Date(Date.UTC(year, month, 1));
 	const emptyCols = Array.from({ length: getDayOfTheWeek(range) - 1 });
@@ -171,9 +227,17 @@ function Calendar({ date }: { date: Date }) {
 		return year === date.getFullYear() && month === date.getMonth() && day + 1 === date.getDate();
 	};
 
+	const handleClick = (day: number) => {
+		const newValue = new Date(Date.UTC(year, month, day));
+
+		onChange(newValue);
+		setCurrentValue(formatDate(newValue));
+		setShowCalendar(false);
+	};
+
 	return (
 		<div className="date-picker__calendar">
-			<Header year={year} setYear={setYear} month={month} setMonth={setMonth} />
+			<Header />
 
 			<div className="date-picker__container">
 				{daysOfTheWeek.map((day) => (
@@ -190,17 +254,14 @@ function Calendar({ date }: { date: Date }) {
 					<button
 						key={index}
 						className={`date-picker__day ${getIsMarkedDay(index) ? "marked" : ""}`}
-						onClick={() => {
-							onChange(new Date(Date.UTC(year, month, index + 1)));
-							setShowCalendar(false);
-						}}
+						onClick={() => handleClick(index + 1)}
 					>
 						{index + 1}
 					</button>
 				))}
 			</div>
 
-			<Footer setMonth={setMonth} setYear={setYear} />
+			<Footer />
 		</div>
 	);
 }
