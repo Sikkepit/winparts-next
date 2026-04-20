@@ -62,3 +62,28 @@ export const getIsValid = (day: number, month: number, year: number): boolean =>
 
 	return true;
 };
+
+/**
+ * Helper function to add automatic dashes when user inputs a date field with
+ * the keyboard. Outputs string in dd-mm-yyyy
+ */
+export const getFormattedOutput = (inputValue: string) => {
+	const cleaned = inputValue.replace(/\D/g, "");
+	const truncated = cleaned.slice(0, 8);
+
+	const day = truncated.substring(0, 2);
+	const month = truncated.substring(2, 4);
+	const year = truncated.substring(4, 8);
+
+	let output = day;
+
+	if (month) {
+		output += `-${month}`;
+	}
+
+	if (year) {
+		output += `-${year}`;
+	}
+
+	return output;
+};
