@@ -14,10 +14,7 @@ export const months = [
 	"december",
 ];
 
-export const getNumberOfDaysInMonth = (date: Date) => {
-	const month = date.getMonth() + 1;
-	const year = date.getFullYear();
-
+export const getNumberOfDaysInMonth = (month: number, year: number) => {
 	const months30 = [4, 6, 9, 11];
 	const leapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 
@@ -43,4 +40,14 @@ export const formatDate = (date: Date | null): string => {
 	const year = date.getFullYear();
 
 	return `${day}-${month}-${year}`;
+};
+
+export const getIsValid = (day: number, month: number, year: number) => {
+	if (month > 11) return false;
+	if (year < 1900 || year > 2100) return false;
+
+	const maxDays = getNumberOfDaysInMonth(month + 1, year);
+	if (day > maxDays) return false;
+
+	return true;
 };

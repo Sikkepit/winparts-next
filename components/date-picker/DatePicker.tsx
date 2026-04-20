@@ -2,7 +2,7 @@
 
 import { useState, Dispatch, SetStateAction, useRef, createContext, useContext } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
-import { daysOfTheWeek, formatDate, getDayOfTheWeek, getNumberOfDaysInMonth, months } from "./utils";
+import { daysOfTheWeek, formatDate, getDayOfTheWeek, getIsValid, getNumberOfDaysInMonth, months } from "./utils";
 import { useKeydown } from "@/hooks/useKeydown";
 
 import "./date-picker.css";
@@ -76,14 +76,18 @@ function CalendarInput() {
 		useDatePicker();
 
 	const handleBlur = () => {
-		if (currentValue.length !== 10) {
-			setCurrentValue(formatDate(date));
-			return;
-		}
+		if (currentValue.length !== 10) return false;
 
 		const day = Number(currentValue.substring(0, 2));
 		const month = Number(currentValue.substring(3, 5)) - 1;
 		const year = Number(currentValue.substring(6, 10));
+
+		const isValid = getIsValid(day, month, year);
+
+		if (!isValid) {
+			setCurrentValue(formatDate(date));
+			return;
+		}
 
 		const selectedDate = new Date(Date.UTC(year, month, day));
 
@@ -136,7 +140,7 @@ function CalendarInput() {
 function Header() {
 	const { year, month, setMonth, setYear } = useDatePicker();
 
-	const changeMonth = (newValue: number) => {
+	const handleChangeMonth = (newValue: number) => {
 		if (newValue < 0) {
 			setMonth(11);
 			setYear(year - 1);
@@ -154,7 +158,7 @@ function Header() {
 
 	return (
 		<div className="date-picker__header">
-			<button onClick={() => changeMonth(month - 1)}>
+			<button onClick={() => handleChangeMonth(month - 1)}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 640 640"
@@ -168,7 +172,7 @@ function Header() {
 				{months[month]} {year}
 			</span>
 
-			<button onClick={() => changeMonth(month + 1)}>
+			<button onClick={() => handleChangeMonth(month + 1)}>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 640 640"
@@ -184,14 +188,14 @@ function Header() {
 function Footer() {
 	const { onChange, setShowCalendar, date, setMonth, setYear, setCurrentValue } = useDatePicker();
 
-	const selectToday = () => {
+	const handleSelectToday = () => {
 		onChange(new Date());
 		setMonth(new Date().getMonth());
 		setYear(new Date().getFullYear());
 		setCurrentValue(formatDate(new Date()));
 	};
 
-	useKeydown("t", () => selectToday());
+	useKeydown("t", () => handleSelectToday());
 
 	return (
 		<div className="date-picker__footer">
@@ -209,7 +213,7 @@ function Footer() {
 				</button>
 			)}
 
-			<button type="button" onClick={selectToday} className="date-picker__today">
+			<button type="button" onClick={handleSelectToday} className="date-picker__today">
 				Vandaag
 			</button>
 		</div>
@@ -221,7 +225,7 @@ function Calendar({ date }: { date: Date }) {
 
 	const range = new Date(Date.UTC(year, month, 1));
 	const emptyCols = Array.from({ length: getDayOfTheWeek(range) - 1 });
-	const days = Array.from({ length: getNumberOfDaysInMonth(range) });
+	const days = Array.from({ length: getNumberOfDaysInMonth(month + 1, year) });
 
 	const getIsMarkedDay = (day: number) => {
 		return year === date.getFullYear() && month === date.getMonth() && day + 1 === date.getDate();
