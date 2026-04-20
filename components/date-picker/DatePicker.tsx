@@ -205,10 +205,12 @@ function Footer() {
 	const { onChange, setShowCalendar, date, setMonth, setYear, setCurrentValue } = useDatePicker();
 
 	const handleSelectToday = () => {
-		onChange(new Date());
-		setMonth(new Date().getMonth());
-		setYear(new Date().getFullYear());
-		setCurrentValue(formatDate(new Date()));
+		const today = new Date();
+
+		onChange(today);
+		setMonth(today.getMonth());
+		setYear(today.getFullYear());
+		setCurrentValue(formatDate(today));
 	};
 
 	useKeydown("t", () => handleSelectToday());
