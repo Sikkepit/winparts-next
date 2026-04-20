@@ -135,6 +135,7 @@ function CalendarInput() {
 	const updateCoordinates = () => {
 		if (ref?.current) {
 			const position = ref?.current.getBoundingClientRect();
+
 			setCoordinates({
 				left: position.left + window.scrollX,
 				top: position.bottom + window.scrollY,
@@ -200,7 +201,7 @@ function Header() {
 				{months[month]} {year}
 			</span>
 
-			<button onClick={() => handleChangeMonth(month + 1)}>
+			<button onClick={() => handleChangeMonth(month + 1)} type="button">
 				<Icon variant="chevronRight" />
 			</button>
 		</div>
@@ -294,6 +295,7 @@ function Calendar({ date }: { date: Date }) {
 								key={index}
 								className={`date-picker__day ${getIsMarkedDay(index) ? "marked" : ""}`}
 								onClick={() => handleClick(index + 1)}
+								type="button"
 							>
 								{index + 1}
 							</button>
