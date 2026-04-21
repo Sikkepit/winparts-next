@@ -12,6 +12,7 @@ import {
 	getIsValid,
 	getNumberOfDaysInMonth,
 	maxYear,
+	minCalendarWidth,
 	minYear,
 	months,
 } from "./utils";
@@ -134,7 +135,7 @@ function CalendarInput() {
 			setCoordinates({
 				left: position.left + window.scrollX,
 				top: position.bottom + window.scrollY,
-				width: position.width <= 266 ? 266 : position.width,
+				width: position.width <= minCalendarWidth ? minCalendarWidth : position.width,
 			});
 		}
 	};
