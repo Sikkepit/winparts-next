@@ -184,7 +184,7 @@ function Header({ prevFn, nextFn, children, prevDisabled = false, nextDisabled =
 					<Icon variant="chevronLeft" />
 				</button>
 			) : (
-				<div />
+				<div className="w-5.25" />
 			)}
 
 			<span className="font-bold">{children}</span>
@@ -194,7 +194,7 @@ function Header({ prevFn, nextFn, children, prevDisabled = false, nextDisabled =
 					<Icon variant="chevronRight" />
 				</button>
 			) : (
-				<div />
+				<div className="w-5.25" />
 			)}
 		</div>
 	);
