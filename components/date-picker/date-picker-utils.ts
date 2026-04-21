@@ -93,3 +93,14 @@ export const getFormattedOutput = (inputValue: string) => {
 
 	return output;
 };
+
+/**
+ * Helper function to get the with of the calendar by taking in account the
+ * width of the input, and the min and max width.
+ */
+export const getCalendarWidth = (inputWidth: number) => {
+	if (inputWidth <= minCalendarWidth) return minCalendarWidth;
+	if (inputWidth >= maxCalendarWidth) return maxCalendarWidth;
+
+	return inputWidth;
+};

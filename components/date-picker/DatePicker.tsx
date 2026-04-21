@@ -6,16 +6,15 @@ import { useKeydown } from "@/hooks/useKeydown";
 import {
 	daysOfTheWeek,
 	formatDate,
+	getCalendarWidth,
 	getDayOfTheWeek,
 	getFormattedOutput,
 	getIsValid,
 	getNumberOfDaysInMonth,
-	maxCalendarWidth,
 	maxYear,
-	minCalendarWidth,
 	minYear,
 	months,
-} from "./utils";
+} from "./date-picker-utils";
 
 import "./date-picker.css";
 
@@ -136,13 +135,6 @@ function CalendarInput() {
 		setYear(year);
 	};
 
-	const getWidth = (inputWidth: number) => {
-		if (inputWidth <= minCalendarWidth) return minCalendarWidth;
-		if (inputWidth >= maxCalendarWidth) return maxCalendarWidth;
-
-		return inputWidth;
-	};
-
 	const updateCoordinates = () => {
 		if (inputWrapperRef?.current) {
 			const position = inputWrapperRef?.current.getBoundingClientRect();
@@ -150,7 +142,7 @@ function CalendarInput() {
 			setCoordinates({
 				left: position.left + window.scrollX,
 				top: position.bottom + window.scrollY,
-				width: getWidth(position.width),
+				width: getCalendarWidth(position.width),
 			});
 		}
 	};
