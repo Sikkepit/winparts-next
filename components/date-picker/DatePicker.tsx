@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, Dispatch, SetStateAction, useRef, createContext, useContext } from "react";
+import { useState, Dispatch, SetStateAction, useRef, createContext, useContext, RefObject, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useKeydown } from "@/hooks/useKeydown";
-import { useClickOutside } from "@/hooks/useClickOutside";
 import {
 	daysOfTheWeek,
 	formatDate,
@@ -11,6 +10,7 @@ import {
 	getFormattedOutput,
 	getIsValid,
 	getNumberOfDaysInMonth,
+	maxCalendarWidth,
 	maxYear,
 	minCalendarWidth,
 	minYear,
@@ -43,6 +43,9 @@ type DatePickerContextValue = {
 
 	coordinates: CoordinatesType;
 	setCoordinates: Dispatch<SetStateAction<CoordinatesType>>;
+
+	calendarRef: RefObject<HTMLDivElement | null>;
+	inputWrapperRef: RefObject<HTMLDivElement | null>;
 };
 
 const DatePickerContext = createContext<DatePickerContextValue | undefined>(undefined);
@@ -63,6 +66,9 @@ export default function DatePicker({ date, onChange }: { date: Date | null; onCh
 	const [year, setYear] = useState(date?.getFullYear() ?? new Date().getFullYear());
 	const [month, setMonth] = useState(date?.getMonth() ?? new Date().getMonth());
 
+	const calendarRef = useRef<HTMLDivElement>(null);
+	const inputWrapperRef = useRef<HTMLDivElement>(null);
+
 	const providerValue = {
 		date,
 		onChange,
@@ -81,6 +87,9 @@ export default function DatePicker({ date, onChange }: { date: Date | null; onCh
 
 		coordinates,
 		setCoordinates,
+
+		calendarRef,
+		inputWrapperRef,
 	};
 
 	return (
@@ -104,9 +113,8 @@ function CalendarInput() {
 		currentValue,
 		setCurrentValue,
 		setCoordinates,
+		inputWrapperRef,
 	} = useDatePicker();
-
-	const ref = useRef<HTMLInputElement>(null);
 
 	const handleChange = (inputValue: string) => {
 		setCurrentValue(getFormattedOutput(inputValue));
@@ -128,20 +136,33 @@ function CalendarInput() {
 		setYear(year);
 	};
 
+	const getWidth = (inputWidth: number) => {
+		if (inputWidth <= minCalendarWidth) return minCalendarWidth;
+		if (inputWidth >= maxCalendarWidth) return maxCalendarWidth;
+
+		return inputWidth;
+	};
+
 	const updateCoordinates = () => {
-		if (ref?.current) {
-			const position = ref?.current.getBoundingClientRect();
+		if (inputWrapperRef?.current) {
+			const position = inputWrapperRef?.current.getBoundingClientRect();
 
 			setCoordinates({
 				left: position.left + window.scrollX,
 				top: position.bottom + window.scrollY,
-				width: position.width <= minCalendarWidth ? minCalendarWidth : position.width,
+				width: getWidth(position.width),
 			});
 		}
 	};
 
-	const handleOpenCalendar = () => {
-		setShowCalendar(!showCalendar);
+	const handleOpenCalendar = (showCalendar: boolean) => {
+		setShowCalendar(showCalendar);
+
+		const initialdate = date ?? new Date();
+
+		setMonth(initialdate.getMonth());
+		setYear(initialdate.getFullYear());
+
 		updateCoordinates();
 
 		if (!showCalendar) {
@@ -154,16 +175,23 @@ function CalendarInput() {
 	};
 
 	return (
-		<div className="date-picker__input-wrapper" onClick={handleOpenCalendar} ref={ref}>
+		<div className="date-picker__input-wrapper" ref={inputWrapperRef}>
 			<input
 				type="text"
 				value={currentValue}
 				onChange={(e) => handleChange(e.target.value)}
+				onClick={() => {
+					if (!showCalendar) {
+						handleOpenCalendar(true);
+					}
+				}}
 				onBlur={() => setCurrentValue(formatDate(date))}
 				placeholder="dd-mm-jjjj"
 			/>
 
-			<Icon variant="calendar" />
+			<button type="button" onClick={() => handleOpenCalendar(!showCalendar)}>
+				<Icon variant="calendar" />
+			</button>
 		</div>
 	);
 }
@@ -241,16 +269,38 @@ function Footer() {
 function Calendar({ date }: { date: Date }) {
 	const [showYearPicker, setShowYearPicker] = useState(false);
 
-	const { setShowCalendar, coordinates } = useDatePicker();
-	const ref = useRef<HTMLDivElement>(null);
+	const { setShowCalendar, coordinates, calendarRef, inputWrapperRef } = useDatePicker();
 
-	useClickOutside(ref, () => setShowCalendar(false));
+	useEffect(() => {
+		const listener = (event: MouseEvent | TouchEvent) => {
+			const target = event.target as Node;
+			const itemGetsDeletedOnClick = !document.body.contains(target);
+
+			if (
+				!calendarRef.current ||
+				calendarRef.current.contains(target) ||
+				!inputWrapperRef.current ||
+				inputWrapperRef.current.contains(target) ||
+				itemGetsDeletedOnClick
+			) {
+				return;
+			}
+
+			setShowCalendar(false);
+		};
+
+		document.addEventListener("click", listener);
+
+		return () => {
+			document.removeEventListener("click", listener);
+		};
+	}, [calendarRef, inputWrapperRef, setShowCalendar]);
 
 	return (
 		<>
 			{createPortal(
 				<div
-					ref={ref}
+					ref={calendarRef}
 					className="date-picker__calendar"
 					style={{
 						top: coordinates.top,
@@ -362,7 +412,12 @@ function DayPicker({ date, setShowYearPicker }: { date: Date; setShowYearPicker:
 	};
 	return (
 		<>
-			<Header prevFn={() => handleChangeMonth(month - 1)} nextFn={() => handleChangeMonth(month + 1)}>
+			<Header
+				prevFn={() => handleChangeMonth(month - 1)}
+				nextFn={() => handleChangeMonth(month + 1)}
+				prevDisabled={month === 0 && year === minYear}
+				nextDisabled={month === 11 && year === maxYear}
+			>
 				<button type="button" className="capitalize" onClick={() => setShowYearPicker(true)}>
 					{months[month]} {year}
 				</button>

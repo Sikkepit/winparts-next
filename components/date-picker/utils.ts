@@ -2,6 +2,7 @@
 export const minYear = 1900;
 export const maxYear = 2100;
 export const minCalendarWidth = 266;
+export const maxCalendarWidth = 300;
 
 export const daysOfTheWeek = ["ma", "di", "wo", "do", "vr", "za", "zo"];
 export const months = [
