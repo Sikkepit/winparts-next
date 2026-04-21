@@ -279,14 +279,19 @@ function YearPicker({ setShowYearPicker }: { setShowYearPicker: (show: boolean) 
 
 	const years = Array.from({ length: pageSize });
 
+	/**
+	 * If the user selects a year in the grid, the new date becomes the current day,
+	 * month with the selected year. If there is no preselected date, the new date
+	 * becomes today's day, month with the selected year.
+	 */
+	const getNewDate = (date: Date, year: number) => new Date(Date.UTC(year, date.getMonth(), date.getDate()));
+
 	const handleClick = (year: number) => {
 		setYear(year);
 
-		if (date) {
-			const newDate = new Date(Date.UTC(year, date.getMonth(), date.getDate()));
-			onChange(newDate);
-			setCurrentValue(formatDate(newDate));
-		}
+		const newDate = date ? getNewDate(date, year) : getNewDate(new Date(), year);
+		onChange(newDate);
+		setCurrentValue(formatDate(newDate));
 
 		setShowYearPicker(false);
 	};
