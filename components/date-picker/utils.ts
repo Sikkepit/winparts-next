@@ -1,3 +1,6 @@
+export const minYear = 1900;
+export const maxYear = 2100;
+
 export const daysOfTheWeek = ["ma", "di", "wo", "do", "vr", "za", "zo"];
 export const months = [
 	"januari",
@@ -55,7 +58,7 @@ export const formatDate = (date: Date | null): string => {
  */
 export const getIsValid = (day: number, month: number, year: number): boolean => {
 	if (month > 12) return false;
-	if (year < 1900 || year > 2100) return false;
+	if (year < minYear || year > maxYear) return false;
 
 	const maxDays = getNumberOfDaysInMonth(month, year);
 	if (day > maxDays) return false;

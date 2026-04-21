@@ -62,9 +62,14 @@
 			color: white;
 		}
 
-		&:hover {
+		&:hover:enabled {
 			background-color: var(--color-poppy);
 			color: white;
+		}
+
+		&:disabled {
+			opacity: 0.5;
+			cursor: default;
 		}
 	}
 

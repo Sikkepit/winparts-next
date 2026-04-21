@@ -11,6 +11,8 @@ import {
 	getFormattedOutput,
 	getIsValid,
 	getNumberOfDaysInMonth,
+	maxYear,
+	minYear,
 	months,
 } from "./utils";
 
@@ -165,18 +167,35 @@ function CalendarInput() {
 	);
 }
 
-function Header({ prevFn, nextFn, children }: { prevFn: () => void; nextFn: () => void; children: React.ReactNode }) {
+type HeaderProps = {
+	prevFn: () => void;
+	nextFn: () => void;
+
+	children: React.ReactNode;
+	prevDisabled?: boolean;
+	nextDisabled?: boolean;
+};
+
+function Header({ prevFn, nextFn, children, prevDisabled = false, nextDisabled = false }: HeaderProps) {
 	return (
 		<div className="date-picker__header">
-			<button onClick={prevFn} type="button">
-				<Icon variant="chevronLeft" />
-			</button>
+			{!prevDisabled ? (
+				<button onClick={prevFn} type="button">
+					<Icon variant="chevronLeft" />
+				</button>
+			) : (
+				<div />
+			)}
 
 			<span className="font-bold">{children}</span>
 
-			<button onClick={nextFn} type="button">
-				<Icon variant="chevronRight" />
-			</button>
+			{!nextDisabled ? (
+				<button onClick={nextFn} type="button">
+					<Icon variant="chevronRight" />
+				</button>
+			) : (
+				<div />
+			)}
 		</div>
 	);
 }
@@ -273,7 +292,12 @@ function YearPicker({ setShowYearPicker }: { setShowYearPicker: (show: boolean) 
 
 	return (
 		<>
-			<Header prevFn={() => setPage(page - 1)} nextFn={() => setPage(page + 1)}>
+			<Header
+				prevFn={() => setPage(page - 1)}
+				nextFn={() => setPage(page + 1)}
+				prevDisabled={firstYear <= minYear}
+				nextDisabled={firstYear + pageSize >= maxYear}
+			>
 				<button type="button" onClick={() => setShowYearPicker(false)}>
 					{firstYear} - {firstYear + pageSize - 1}
 				</button>
@@ -286,6 +310,7 @@ function YearPicker({ setShowYearPicker }: { setShowYearPicker: (show: boolean) 
 						className={`date-picker__day ${firstYear + index === year ? "marked" : ""}`}
 						onClick={() => handleClick(firstYear + index)}
 						type="button"
+						disabled={firstYear + index < minYear || firstYear + index > maxYear}
 					>
 						{firstYear + index}
 					</button>
