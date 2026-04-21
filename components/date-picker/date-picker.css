@@ -52,19 +52,19 @@
 			opacity: 0.5;
 			margin-block-end: 0.25rem;
 		}
+	}
 
-		.date-picker__day {
-			aspect-ratio: 1;
+	.date-picker__day {
+		aspect-ratio: 1;
 
-			&.marked {
-				background-color: var(--color-purple);
-				color: white;
-			}
+		&.marked {
+			background-color: var(--color-purple);
+			color: white;
+		}
 
-			&:hover {
-				background-color: var(--color-poppy);
-				color: white;
-			}
+		&:hover {
+			background-color: var(--color-poppy);
+			color: white;
 		}
 	}
 

@@ -165,36 +165,16 @@ function CalendarInput() {
 	);
 }
 
-function Header() {
-	const { year, month, setMonth, setYear } = useDatePicker();
-
-	const handleChangeMonth = (newValue: number) => {
-		if (newValue < 0) {
-			setMonth(11);
-			setYear(year - 1);
-			return;
-		}
-
-		if (newValue > 11) {
-			setMonth(0);
-			setYear(year + 1);
-			return;
-		}
-
-		setMonth(newValue);
-	};
-
+function Header({ prevFn, nextFn, children }: { prevFn: () => void; nextFn: () => void; children: React.ReactNode }) {
 	return (
 		<div className="date-picker__header">
-			<button onClick={() => handleChangeMonth(month - 1)} type="button">
+			<button onClick={prevFn} type="button">
 				<Icon variant="chevronLeft" />
 			</button>
 
-			<span className="capitalize font-bold">
-				{months[month]} {year}
-			</span>
+			<span className="font-bold">{children}</span>
 
-			<button onClick={() => handleChangeMonth(month + 1)} type="button">
+			<button onClick={nextFn} type="button">
 				<Icon variant="chevronRight" />
 			</button>
 		</div>
@@ -239,24 +219,10 @@ function Footer() {
 }
 
 function Calendar({ date }: { date: Date }) {
-	const { onChange, setShowCalendar, year, month, setCurrentValue, coordinates } = useDatePicker();
+	const [showYearPicker, setShowYearPicker] = useState(false);
 
-	const range = new Date(Date.UTC(year, month, 1));
-	const emptyCols = Array.from({ length: getDayOfTheWeek(range) - 1 });
-	const days = Array.from({ length: getNumberOfDaysInMonth(month + 1, year) });
+	const { setShowCalendar, coordinates } = useDatePicker();
 	const ref = useRef<HTMLDivElement>(null);
-
-	const getIsMarkedDay = (day: number) => {
-		return year === date.getFullYear() && month === date.getMonth() && day + 1 === date.getDate();
-	};
-
-	const handleClick = (day: number) => {
-		const newValue = new Date(Date.UTC(year, month, day));
-
-		onChange(newValue);
-		setCurrentValue(formatDate(newValue));
-		setShowCalendar(false);
-	};
 
 	useClickOutside(ref, () => setShowCalendar(false));
 
@@ -272,35 +238,129 @@ function Calendar({ date }: { date: Date }) {
 						width: coordinates.width,
 					}}
 				>
-					<Header />
-
-					<div className="date-picker__container">
-						{daysOfTheWeek.map((day) => (
-							<div className="date-picker__day-name" key={day}>
-								{day}
-							</div>
-						))}
-
-						{emptyCols.map((__, index) => (
-							<div key={index}></div>
-						))}
-
-						{days.map((__, index) => (
-							<button
-								key={index}
-								className={`date-picker__day ${getIsMarkedDay(index) ? "marked" : ""}`}
-								onClick={() => handleClick(index + 1)}
-								type="button"
-							>
-								{index + 1}
-							</button>
-						))}
-					</div>
-
-					<Footer />
+					{showYearPicker ? (
+						<YearPicker setShowYearPicker={setShowYearPicker} />
+					) : (
+						<DayPicker date={date} setShowYearPicker={setShowYearPicker} />
+					)}
 				</div>,
 				document.body,
 			)}
+		</>
+	);
+}
+
+function YearPicker({ setShowYearPicker }: { setShowYearPicker: (show: boolean) => void }) {
+	const [page, setPage] = useState(0);
+	const { year, setYear, date, onChange, setCurrentValue } = useDatePicker();
+
+	const pageSize = 16;
+	const firstYear = year - 5 + pageSize * page;
+
+	const years = Array.from({ length: pageSize });
+
+	const handleClick = (year: number) => {
+		setYear(year);
+
+		if (date) {
+			const newDate = new Date(Date.UTC(year, date.getMonth(), date.getDate()));
+			onChange(newDate);
+			setCurrentValue(formatDate(newDate));
+		}
+
+		setShowYearPicker(false);
+	};
+
+	return (
+		<>
+			<Header prevFn={() => setPage(page - 1)} nextFn={() => setPage(page + 1)}>
+				<button type="button" onClick={() => setShowYearPicker(false)}>
+					{firstYear} - {firstYear + pageSize - 1}
+				</button>
+			</Header>
+
+			<div className="grid grid-cols-4">
+				{years.map((__, index) => (
+					<button
+						key={firstYear + index}
+						className={`date-picker__day ${firstYear + index === year ? "marked" : ""}`}
+						onClick={() => handleClick(firstYear + index)}
+						type="button"
+					>
+						{firstYear + index}
+					</button>
+				))}
+			</div>
+		</>
+	);
+}
+
+function DayPicker({ date, setShowYearPicker }: { date: Date; setShowYearPicker: (show: boolean) => void }) {
+	const { onChange, setShowCalendar, year, month, setCurrentValue, setMonth, setYear } = useDatePicker();
+
+	const range = new Date(Date.UTC(year, month, 1));
+	const emptyCols = Array.from({ length: getDayOfTheWeek(range) - 1 });
+	const days = Array.from({ length: getNumberOfDaysInMonth(month + 1, year) });
+
+	const getIsMarkedDay = (day: number) => {
+		return year === date.getFullYear() && month === date.getMonth() && day + 1 === date.getDate();
+	};
+
+	const handleClick = (day: number) => {
+		const newValue = new Date(Date.UTC(year, month, day));
+
+		onChange(newValue);
+		setCurrentValue(formatDate(newValue));
+		setShowCalendar(false);
+	};
+
+	const handleChangeMonth = (newValue: number) => {
+		if (newValue < 0) {
+			setMonth(11);
+			setYear(year - 1);
+			return;
+		}
+
+		if (newValue > 11) {
+			setMonth(0);
+			setYear(year + 1);
+			return;
+		}
+
+		setMonth(newValue);
+	};
+	return (
+		<>
+			<Header prevFn={() => handleChangeMonth(month - 1)} nextFn={() => handleChangeMonth(month + 1)}>
+				<button type="button" className="capitalize" onClick={() => setShowYearPicker(true)}>
+					{months[month]} {year}
+				</button>
+			</Header>
+
+			<div className="date-picker__container">
+				{daysOfTheWeek.map((day) => (
+					<div className="date-picker__day-name" key={day}>
+						{day}
+					</div>
+				))}
+
+				{emptyCols.map((__, index) => (
+					<div key={index}></div>
+				))}
+
+				{days.map((__, index) => (
+					<button
+						key={index}
+						className={`date-picker__day ${getIsMarkedDay(index) ? "marked" : ""}`}
+						onClick={() => handleClick(index + 1)}
+						type="button"
+					>
+						{index + 1}
+					</button>
+				))}
+			</div>
+
+			<Footer />
 		</>
 	);
 }
