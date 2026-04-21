@@ -144,11 +144,11 @@ function CalendarInput() {
 		updateCoordinates();
 
 		if (!showCalendar) {
-			window.addEventListener("resize", updateCoordinates);
-			window.addEventListener("scroll", updateCoordinates);
+			window.addEventListener("resize", updateCoordinates, true);
+			window.addEventListener("scroll", updateCoordinates, true);
 		} else {
-			window.removeEventListener("resize", updateCoordinates);
-			window.removeEventListener("scroll", updateCoordinates);
+			window.removeEventListener("resize", updateCoordinates, true);
+			window.removeEventListener("scroll", updateCoordinates, true);
 		}
 	};
 
